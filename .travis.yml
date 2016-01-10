@@ -1,0 +1,2 @@
+# simple travis script to build a java app
+language: java
