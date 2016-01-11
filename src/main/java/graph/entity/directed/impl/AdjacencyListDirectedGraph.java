@@ -23,7 +23,7 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 		for(int i=0; i<this.order; i++) {
 			int[] successors = adjacencyMatrix.getSuccessors(i);
 
-			adjacencyList.add(new AbstractMap.SimpleEntry<Integer, List<Integer>>(succInc, ListConverter.toList(successors)));
+			adjacencyList.add(new AbstractMap.SimpleEntry<>(succInc, ListConverter.toList(successors)));
 			succInc+=successors.length;
 		}
 	}
@@ -59,7 +59,7 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public int addVertex() {
-		this.adjacencyList.add(new AbstractMap.SimpleEntry<Integer, List<Integer>>(++this.order, new ArrayList<>()));
+		this.adjacencyList.add(new AbstractMap.SimpleEntry<>(++this.order, new ArrayList<>()));
 		return this.order;
 	}
 
