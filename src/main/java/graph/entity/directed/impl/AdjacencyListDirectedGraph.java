@@ -78,7 +78,7 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 	@Override
 	public void display() {
 		for(Entry<Integer, List<Integer>> node : this.adjacencyList) {
-			System.out.print(node.getKey() + " ==> ");	    	
+			System.out.print(node.getKey() + " ==> ");
 			node.getValue().stream().forEach(s -> System.out.print(s + " "));
 			System.out.println();
 		}

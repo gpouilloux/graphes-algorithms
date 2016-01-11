@@ -4,6 +4,16 @@
     <artifactId>graphes-algorithms</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <contributors>
+        <contributor>
+            <name>Guillaume Pouilloux</name>
+            <email>guillaume.pouilloux@gmail.com</email>
+        </contributor>
+    </contributors>
 
     <dependencies>
 
@@ -23,7 +33,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -31,6 +40,44 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <!-- code coverage -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <format>xml</format>
+                    <maxmem>256m</maxmem>
+                    <!-- aggregated reports for multi-module projects -->
+                    <aggregate>true</aggregate>
+                    <check>
+                        <branchRate>85</branchRate>
+                        <lineRate>85</lineRate>
+                        <haltOnFailure>true</haltOnFailure>
+                        <totalBranchRate>85</totalBranchRate>
+                        <totalLineRate>85</totalLineRate>
+                        <packageLineRate>85</packageLineRate>
+                        <packageBranchRate>85</packageBranchRate>
+                        <regexes>
+                            <regex>
+                                <pattern>graph.*</pattern>
+                                <branchRate>80</branchRate>
+                                <lineRate>80</lineRate>
+                            </regex>
+
+                        </regexes>
+                    </check>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>4.1.0</version>
+                <configuration>
+                    <repoToken>dsmh411rQLre0czzMK7AKsOiEQ9Tm1NVW</repoToken>
                 </configuration>
             </plugin>
         </plugins>
