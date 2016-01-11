@@ -1,10 +1,10 @@
-package entity.graph.directed.impl;
+package graph.entity.directed.impl;
+
+import graph.entity.directed.AbstractDirectedGraph;
+import graph.util.ListConverter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import entity.graph.directed.AbstractDirectedGraph;
-import util.ListConverter;
 
 public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 

@@ -1,4 +1,4 @@
-package entity.graph.directed;
+package graph.entity.directed;
 
 /**
  * Interface de manipulation des graphes orientés

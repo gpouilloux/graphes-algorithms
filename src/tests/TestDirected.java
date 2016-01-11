@@ -1,9 +1,9 @@
 package tests;
 
-import entity.graph.directed.impl.AdjacencyListDirectedGraph;
-import entity.graph.directed.impl.AdjacencyMatrixDirectedGraph;
-import entity.graph.directed.impl.IncidentMatrixDirectedGraph;
-import util.ListConverter;
+import graph.entity.directed.impl.AdjacencyListDirectedGraph;
+import graph.entity.directed.impl.AdjacencyMatrixDirectedGraph;
+import graph.entity.directed.impl.IncidentMatrixDirectedGraph;
+import graph.util.ListConverter;
 
 // TODO convert to JUnit test
 public class TestDirected {

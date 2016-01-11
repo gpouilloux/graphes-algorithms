@@ -1,4 +1,4 @@
-package entity.graph.undirected;
+package graph.entity.undirected;
 
 /**
  * Interface de manipulation de graphes non orientés

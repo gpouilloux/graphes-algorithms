@@ -1,19 +1,13 @@
-package entity.graph.undirected.impl;
+package graph.entity.directed.impl;
+
+import graph.entity.directed.AbstractDirectedGraph;
+import graph.util.ListConverter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import entity.graph.undirected.AbstractUndirectedGraph;
-import util.ListConverter;
-
-/**
- * Représentation d'un graphe avec une matrice d'incidence
- * 
- * @author gpouillo
- *
- */
-public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
+public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 
 	private int[][] incidentMatrix;
 	private int[][] adjacencyMatrix;
@@ -24,21 +18,21 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 	 * @param order le nombre de sommets
 	 * @param nbEdges le nombre d'arêtes
 	 */
-	public IncidentMatrixUndirectedGraph(int order, int nbEdges) {
+	public IncidentMatrixDirectedGraph(int order, int nbEdges) {
 		this.order = order;
 		this.nbEdges = nbEdges;
 		this.incidentMatrix = new int[order][nbEdges];
 
-		this.adjacencyMatrix = AbstractUndirectedGraph.getRandomUndirectedGraph(order, nbEdges);
+		this.adjacencyMatrix = AbstractDirectedGraph.getRandomDirectedGraph(order, nbEdges);
 
 		int remainingEdges = nbEdges; // remaining edges to look for
 
 		// convert the adjacency matrix into an incident matrix
 		for(int i=0; i<order; i++) {
-			for(int j=i+1; j<order; j++) {
+			for(int j=0; j<order; j++) {
 				if(this.adjacencyMatrix[i][j] == 1) {
 					this.incidentMatrix[i][nbEdges - remainingEdges] = 1;
-					this.incidentMatrix[j][nbEdges - remainingEdges] = 1;
+					this.incidentMatrix[j][nbEdges - remainingEdges] = -1;
 					remainingEdges--;
 				}
 			}
@@ -51,8 +45,8 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 	 * 
 	 * @param adjacencyList la liste d'adjacence
 	 */
-	public IncidentMatrixUndirectedGraph(AdjacencyListUndirectedGraph adjacencyList) {
-		
+	public IncidentMatrixDirectedGraph(AdjacencyListDirectedGraph adjacencyList) {
+
 
 		this.order = adjacencyList.getOrder();
 		this.nbEdges = adjacencyList.getNbEdges();
@@ -61,22 +55,18 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
 		int vertexNumber = 0;
 		int remainingEdges = nbEdges;
-		
+
 		for(Entry<Integer, List<Integer>> e : adjacencyList.getAdjacencyList()) { // § number of vertexes
-			for(Integer neighbor : e.getValue()) { // $ number of edges / 2
+			for(Integer successor : e.getValue()) { // $ number of edges / 2
 				incidentMatrix[vertexNumber][nbEdges - remainingEdges] = 1;
-				incidentMatrix[neighbor][nbEdges - remainingEdges] = 1;
+				incidentMatrix[successor][nbEdges - remainingEdges] = -1;
 				remainingEdges--;
-				
-				// remove same edge as the graph is undirected
-				adjacencyList.getAdjacencyList().get(neighbor).getValue().remove(new Integer(vertexNumber));
 			}
 			vertexNumber++;
 		}
-		
+
 		this.incidentMatrix = incidentMatrix;
 	}
-
 
 	@Override
 	public int[][] getGraph() {
@@ -84,21 +74,39 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 	}
 
 	@Override
-	public int[] getNeighbors(int x) {
-		List<Integer> neighbors = new ArrayList<Integer>();
+	public int[] getSuccessors(int x) {
+		List<Integer> successors = new ArrayList<Integer>();
 
 		int[] edges = this.incidentMatrix[x];
 		for(int i=0; i<edges.length; i++) {
 			if(edges[i] == 1) {
 				for(int j=0; j<this.order; j++) {
-					if(this.incidentMatrix[j][i] == 1 && j != x) {
-						neighbors.add(new Integer(j));
+					if(this.incidentMatrix[j][i] == -1) {
+						successors.add(new Integer(j));
 					}
 				}
 			}
 		}
 
-		return ListConverter.toArray(neighbors);
+		return ListConverter.toArray(successors);
+	}
+
+	@Override
+	public int[] getPredecessors(int x) {
+		List<Integer> predecessors = new ArrayList<Integer>();
+
+		int[] edges = this.incidentMatrix[x];
+		for(int i=0; i<edges.length; i++) {
+			if(edges[i] == -1) {
+				for(int j=0; j<this.order; j++) {
+					if(this.incidentMatrix[j][i] == 1) {
+						predecessors.add(new Integer(j));
+					}
+				}
+			}
+		}
+
+		return ListConverter.toArray(predecessors);
 	}
 
 	@Override
@@ -109,7 +117,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 		int i=0;
 
 		while(!isEdge && i < edgesOfX.length) {
-			if(edgesOfX[i] == 1 && edgesOfY[i] == 1) {
+			if(edgesOfX[i] == 1 && edgesOfY[i] == -1) {
 				isEdge = true;
 			}
 			i++;
@@ -134,7 +142,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 	}
 
 	@Override
-	public void removeEdge(int x, int y) {
+	public void removeArc(int x, int y) {
 		int[] edgesOfX = this.incidentMatrix[x];
 		int[] edgesOfY = this.incidentMatrix[y];
 
@@ -142,7 +150,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 		int columnEdge=0; // to keep the column id to remove
 
 		while(!edgeFounded && columnEdge < edgesOfX.length) {
-			if(edgesOfX[columnEdge] == 1 && edgesOfY[columnEdge] == 1) {
+			if(edgesOfX[columnEdge] == 1 && edgesOfY[columnEdge] == -1) {
 				edgeFounded = true;
 			} else {
 				columnEdge++;
@@ -169,7 +177,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 	}
 
 	@Override
-	public void addEdge(int x, int y) {
+	public void addArc(int x, int y) {
 		int[][] newIncidentMatrix = new int[this.order][this.nbEdges+1];
 
 		for(int i=0; i<this.order; i++) {
@@ -178,7 +186,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 			}
 		}
 		newIncidentMatrix[x][this.nbEdges] = 1;
-		newIncidentMatrix[y][this.nbEdges] = 1;
+		newIncidentMatrix[y][this.nbEdges] = -1;
 
 		this.incidentMatrix = newIncidentMatrix;
 		this.nbEdges++;

@@ -1,8 +1,8 @@
 package tests;
 
-import entity.graph.undirected.impl.AdjacencyListUndirectedGraph;
-import entity.graph.undirected.impl.AdjacencyMatrixUndirectedGraph;
-import entity.graph.undirected.impl.IncidentMatrixUndirectedGraph;
+import graph.entity.undirected.impl.AdjacencyListUndirectedGraph;
+import graph.entity.undirected.impl.AdjacencyMatrixUndirectedGraph;
+import graph.entity.undirected.impl.IncidentMatrixUndirectedGraph;
 
 // TODO convert to JUnit test
 public class TestUndirected {

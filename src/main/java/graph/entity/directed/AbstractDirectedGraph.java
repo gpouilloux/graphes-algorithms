@@ -1,4 +1,4 @@
-package entity.graph.undirected;
+package graph.entity.directed;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -6,34 +6,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class AbstractUndirectedGraph implements IUndirectedGraph {
+public abstract class AbstractDirectedGraph implements IDirectedGraph {
 
-	/**
-	 * Number of vertex
-	 */
 	protected int order;
 	
-	/**
-	 * Number of edges
-	 */
 	protected int nbEdges;
 
-
-	/**
-	 * Génère un graphe non orienté de manière aléatoire
-	 * @param order l'odre du graphe (i.e nombre de sommets)
-	 * @param nbEdges le nombre d'arêtes
-	 * @return le graphe non orienté aléatoire
-	 */
-	public static int[][] getRandomUndirectedGraph(int ordre, int nbEdges) {
-
+	public static int[][] getRandomDirectedGraph(int ordre, int nbEdges) {
 		int[][] adjacencyMatrix = new int[ordre][ordre];
 
 		// Récupération de toutes les arêtes
 		List<Entry<Integer, Integer>> edges = new ArrayList<Entry<Integer,Integer>>();
 		for(int i=0; i<ordre; i++) {
-			for(int j=i+1; j<ordre; j++) {
-				edges.add(new AbstractMap.SimpleEntry<Integer,Integer>(i,j));
+			for(int j=0; j<ordre; j++) {
+				if(i != j)
+					edges.add(new AbstractMap.SimpleEntry<Integer,Integer>(i,j));
 			}
 		}
 
@@ -48,7 +35,6 @@ public abstract class AbstractUndirectedGraph implements IUndirectedGraph {
 		// Mise à jour de la matrice d'adjacence
 		for(Map.Entry<Integer, Integer> edge : selectedEdges) {
 			adjacencyMatrix[edge.getKey()][edge.getValue()] = 1;
-			adjacencyMatrix[edge.getValue()][edge.getKey()] = 1;
 		}
 
 		return adjacencyMatrix;
@@ -58,8 +44,8 @@ public abstract class AbstractUndirectedGraph implements IUndirectedGraph {
 		return order;
 	}
 
-	public void setOrder(int ordre) {
-		this.order = ordre;
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 	public int getNbEdges() {
@@ -69,5 +55,4 @@ public abstract class AbstractUndirectedGraph implements IUndirectedGraph {
 	public void setNbEdges(int nbEdges) {
 		this.nbEdges = nbEdges;
 	}
-
 }

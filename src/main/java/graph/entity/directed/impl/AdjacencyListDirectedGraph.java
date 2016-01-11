@@ -1,19 +1,19 @@
-package entity.graph.undirected.impl;
+package graph.entity.directed.impl;
+
+import graph.entity.directed.AbstractDirectedGraph;
+import graph.util.ListConverter;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import entity.graph.undirected.AbstractUndirectedGraph;
-import util.ListConverter;
-
-public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
+public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 
 	private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<Entry<Integer, List<Integer>>>();
-	private AdjacencyMatrixUndirectedGraph adjacencyMatrix;
+	private AdjacencyMatrixDirectedGraph adjacencyMatrix;
 
-	public AdjacencyListUndirectedGraph(AdjacencyMatrixUndirectedGraph adjacencyMatrix) {
+	public AdjacencyListDirectedGraph(AdjacencyMatrixDirectedGraph adjacencyMatrix) {
 		this.adjacencyMatrix = adjacencyMatrix; // still useful to backup the adjacency matrix
 		this.order = adjacencyMatrix.getOrder();
 		this.nbEdges = adjacencyMatrix.getNbEdges();
@@ -21,10 +21,10 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 
 		// build the adjacency list by iterating through each vertex and looking for its successors (i.e neighbors)
 		for(int i=0; i<this.order; i++) {
-			int[] neighbors = adjacencyMatrix.getNeighbors(i);
+			int[] successors = adjacencyMatrix.getSuccessors(i);
 
-			adjacencyList.add(new AbstractMap.SimpleEntry<Integer, List<Integer>>(succInc, ListConverter.toList(neighbors)));
-			succInc+=neighbors.length;
+			adjacencyList.add(new AbstractMap.SimpleEntry<Integer, List<Integer>>(succInc, ListConverter.toList(successors)));
+			succInc+=successors.length;
 		}
 	}
 
@@ -34,8 +34,22 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 	}
 
 	@Override
-	public int[] getNeighbors(int x) {
+	public int[] getSuccessors(int x) {
 		return ListConverter.toArray(this.adjacencyList.get(x).getValue());
+	}
+
+	@Override
+	public int[] getPredecessors(int x) {
+		List<Integer> predecessors = new ArrayList<>();
+		
+		for(int i=0; i<this.adjacencyList.size(); i++) {
+			Entry<Integer, List<Integer>> vertex = this.adjacencyList.get(i);
+			if(vertex.getValue().contains(new Integer(x))) {
+				predecessors.add(i);
+			}
+		}
+		
+		return ListConverter.toArray(predecessors);
 	}
 
 	@Override
@@ -50,13 +64,13 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 	}
 
 	@Override
-	public void removeEdge(int x, int y) {
+	public void removeArc(int x, int y) {
 		this.adjacencyList.get(x).getValue().remove(new Integer(y));
 		this.nbEdges--;
 	}
 
 	@Override
-	public void addEdge(int x, int y) {
+	public void addArc(int x, int y) {
 		this.adjacencyList.get(x).getValue().add(new Integer(y));
 		this.nbEdges++;
 	}
@@ -69,8 +83,8 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 			System.out.println();
 		}
 	}
-
-	public List<Entry<Integer, List<Integer>>> getAdjacencyList() {
+	
+    public List<Entry<Integer, List<Integer>>> getAdjacencyList() {
 		return adjacencyList;
 	}
 

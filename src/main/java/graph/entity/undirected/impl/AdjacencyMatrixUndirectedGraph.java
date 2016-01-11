@@ -1,10 +1,10 @@
-package entity.graph.undirected.impl;
+package graph.entity.undirected.impl;
+
+import graph.entity.undirected.AbstractUndirectedGraph;
+import graph.util.ListConverter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import entity.graph.undirected.AbstractUndirectedGraph;
-import util.ListConverter;
 
 public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
