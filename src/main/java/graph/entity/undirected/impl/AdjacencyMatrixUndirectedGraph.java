@@ -16,6 +16,12 @@ public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 		this.adjacencyMatrix = AbstractUndirectedGraph.getRandomUndirectedGraph(ordre, nbEdges);
 	}
 
+	public AdjacencyMatrixUndirectedGraph(int order, int nbEdges, int[][] adjacencyMatrix) {
+		this.order = order;
+		this.nbEdges = nbEdges;
+		this.adjacencyMatrix = adjacencyMatrix;
+	}
+
 	@Override
 	public int[][] getGraph() {
 		return this.adjacencyMatrix;
