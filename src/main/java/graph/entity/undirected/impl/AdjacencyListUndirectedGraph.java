@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 
-	private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<Entry<Integer, List<Integer>>>();
+	private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<>();
 	private AdjacencyMatrixUndirectedGraph adjacencyMatrix;
 
 	public AdjacencyListUndirectedGraph(AdjacencyMatrixUndirectedGraph adjacencyMatrix) {
@@ -23,7 +23,7 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 		for(int i=0; i<this.order; i++) {
 			int[] neighbors = adjacencyMatrix.getNeighbors(i);
 
-			adjacencyList.add(new AbstractMap.SimpleEntry<Integer, List<Integer>>(succInc, ListConverter.toList(neighbors)));
+			adjacencyList.add(new AbstractMap.SimpleEntry<>(succInc, ListConverter.toList(neighbors)));
 			succInc+=neighbors.length;
 		}
 	}
@@ -45,7 +45,7 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 
 	@Override
 	public int addVertex() {
-		this.adjacencyList.add(new AbstractMap.SimpleEntry<Integer, List<Integer>>(++this.order, new ArrayList<>()));
+		this.adjacencyList.add(new AbstractMap.SimpleEntry<>(++this.order, new ArrayList<>()));
 		return this.order;
 	}
 
@@ -57,7 +57,7 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 
 	@Override
 	public void addEdge(int x, int y) {
-		this.adjacencyList.get(x).getValue().add(new Integer(y));
+		this.adjacencyList.get(x).getValue().add(y);
 		this.nbEdges++;
 	}
 

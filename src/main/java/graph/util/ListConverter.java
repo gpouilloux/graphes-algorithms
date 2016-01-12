@@ -21,9 +21,9 @@ public class ListConverter {
 	 */
 	public static List<Integer> toList(int[] array) {
 		List<Integer> res = new ArrayList<>();
-		
-		for(int i=0; i<array.length; i++) {
-			res.add(new Integer(array[i]));
+
+		for (int element : array) {
+			res.add(new Integer(element));
 		}
 		
 		return res;

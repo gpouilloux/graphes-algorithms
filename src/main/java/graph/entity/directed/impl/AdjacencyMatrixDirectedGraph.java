@@ -65,9 +65,8 @@ public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 		int[][] newAdjacencyMatrix = new int[this.order+1][this.order+1];
 
 		for(int i=0; i<this.order; i++) {
-			for(int j=i+1; j<this.order; j++) {
+			for(int j=0; j<this.order; j++) {
 				newAdjacencyMatrix[i][j] = adjacencyMatrix[i][j];
-				newAdjacencyMatrix[j][i] = adjacencyMatrix[j][i];
 			}
 		}
 

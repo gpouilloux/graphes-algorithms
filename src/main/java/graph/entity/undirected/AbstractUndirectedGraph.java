@@ -25,20 +25,20 @@ public abstract class AbstractUndirectedGraph implements IUndirectedGraph {
 	 * @param nbEdges le nombre d'arêtes
 	 * @return le graphe non orienté aléatoire
 	 */
-	public static int[][] getRandomUndirectedGraph(int ordre, int nbEdges) {
+	public static int[][] getRandomUndirectedGraph(int order, int nbEdges) {
 
-		int[][] adjacencyMatrix = new int[ordre][ordre];
+		int[][] adjacencyMatrix = new int[order][order];
 
 		// Récupération de toutes les arêtes
-		List<Entry<Integer, Integer>> edges = new ArrayList<Entry<Integer,Integer>>();
-		for(int i=0; i<ordre; i++) {
-			for(int j=i+1; j<ordre; j++) {
-				edges.add(new AbstractMap.SimpleEntry<Integer,Integer>(i,j));
+		List<Entry<Integer, Integer>> edges = new ArrayList<>();
+		for(int i = 0; i< order; i++) {
+			for(int j = i+1; j< order; j++) {
+				edges.add(new AbstractMap.SimpleEntry<>(i, j));
 			}
 		}
 
 		// Epurage pour sélection de seulement nbAretes arêtes
-		List<Entry<Integer, Integer>> selectedEdges = new ArrayList<Entry<Integer, Integer>>();
+		List<Entry<Integer, Integer>> selectedEdges = new ArrayList<>();
 		int nbEdgesPossible = edges.size();
 		for(int i=0; i<nbEdges; i++) {
 			int edgeToRemove = (int) Math.round(Math.random() * (--nbEdgesPossible));

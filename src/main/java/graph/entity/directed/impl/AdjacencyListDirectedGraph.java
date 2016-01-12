@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 
-	private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<Entry<Integer, List<Integer>>>();
+	private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<>();
 	private AdjacencyMatrixDirectedGraph adjacencyMatrix;
 
 	public AdjacencyListDirectedGraph(AdjacencyMatrixDirectedGraph adjacencyMatrix) {
@@ -44,7 +44,7 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 		
 		for(int i=0; i<this.adjacencyList.size(); i++) {
 			Entry<Integer, List<Integer>> vertex = this.adjacencyList.get(i);
-			if(vertex.getValue().contains(new Integer(x))) {
+			if(vertex.getValue().contains(x)) {
 				predecessors.add(i);
 			}
 		}
@@ -71,7 +71,7 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public void addArc(int x, int y) {
-		this.adjacencyList.get(x).getValue().add(new Integer(y));
+		this.adjacencyList.get(x).getValue().add(y);
 		this.nbEdges++;
 	}
 

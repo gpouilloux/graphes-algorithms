@@ -16,16 +16,16 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
 		int[][] adjacencyMatrix = new int[ordre][ordre];
 
 		// Récupération de toutes les arêtes
-		List<Entry<Integer, Integer>> edges = new ArrayList<Entry<Integer,Integer>>();
+		List<Entry<Integer, Integer>> edges = new ArrayList<>();
 		for(int i=0; i<ordre; i++) {
 			for(int j=0; j<ordre; j++) {
 				if(i != j)
-					edges.add(new AbstractMap.SimpleEntry<Integer,Integer>(i,j));
+					edges.add(new AbstractMap.SimpleEntry<>(i, j));
 			}
 		}
 
 		// Epurage pour sélection de seulement nbAretes arêtes
-		List<Entry<Integer, Integer>> selectedEdges = new ArrayList<Entry<Integer, Integer>>();
+		List<Entry<Integer, Integer>> selectedEdges = new ArrayList<>();
 		int nbEdgesPossible = edges.size();
 		for(int i=0; i<nbEdges; i++) {
 			int edgeToRemove = (int) Math.round(Math.random() * (--nbEdgesPossible));

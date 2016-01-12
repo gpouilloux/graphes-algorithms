@@ -85,14 +85,14 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
     @Override
     public int[] getNeighbors(int x) {
-        List<Integer> neighbors = new ArrayList<Integer>();
+        List<Integer> neighbors = new ArrayList<>();
 
         int[] edges = this.incidentMatrix[x];
         for(int i=0; i<edges.length; i++) {
             if(edges[i] == 1) {
                 for(int j=0; j<this.order; j++) {
                     if(this.incidentMatrix[j][i] == 1 && j != x) {
-                        neighbors.add(new Integer(j));
+                        neighbors.add(j);
                     }
                 }
             }

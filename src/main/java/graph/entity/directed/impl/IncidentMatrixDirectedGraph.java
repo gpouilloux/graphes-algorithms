@@ -75,7 +75,7 @@ public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public int[] getSuccessors(int x) {
-		List<Integer> successors = new ArrayList<Integer>();
+		List<Integer> successors = new ArrayList<>();
 
 		int[] edges = this.incidentMatrix[x];
 		for(int i=0; i<edges.length; i++) {
@@ -93,14 +93,14 @@ public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public int[] getPredecessors(int x) {
-		List<Integer> predecessors = new ArrayList<Integer>();
+		List<Integer> predecessors = new ArrayList<>();
 
 		int[] edges = this.incidentMatrix[x];
 		for(int i=0; i<edges.length; i++) {
 			if(edges[i] == -1) {
 				for(int j=0; j<this.order; j++) {
 					if(this.incidentMatrix[j][i] == 1) {
-						predecessors.add(new Integer(j));
+						predecessors.add(j);
 					}
 				}
 			}
