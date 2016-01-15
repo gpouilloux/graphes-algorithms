@@ -90,5 +90,21 @@ public class AdjacencyMatrixDirectedGraphTest {
         assertThat(this.adjacencyMatrix.isEdge(x, y), equalTo(Boolean.FALSE));
     }
 
+    @Test
+    public void testInverse() {
+        AdjacencyMatrixDirectedGraph result = this.adjacencyMatrix.inverse();
+
+        int[][] adjacencyMatrix = {
+                { 0, -1, -1, 0, },
+                { 0, 0, 0, 0, },
+                { 0, -1, 0, 0, },
+                { 0, 0, 0, 0 }
+        };
+
+        AdjacencyMatrixDirectedGraph expected = new AdjacencyMatrixDirectedGraph(4, 3, adjacencyMatrix);
+
+        assertThat(result.getAdjacencyMatrix(), equalTo(expected.getAdjacencyMatrix()));
+    }
+
 
 }

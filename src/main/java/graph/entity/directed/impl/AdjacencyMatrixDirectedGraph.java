@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 
-	private int[][] adjacencyMatrix;
+    private int[][] adjacencyMatrix;
 
 	public AdjacencyMatrixDirectedGraph(int order, int nbEdges) {
 		this.order = order;
@@ -99,8 +99,29 @@ public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public AdjacencyMatrixDirectedGraph inverse() {
-		// TODO
-		return null;
+
+        int[][] inverseAdjacencyMatrix = new int[this.getOrder()][this.getOrder()];
+
+        for(int i=0; i<this.order; i++) {
+            for(int j=0; j<this.order; j++) {
+                if(this.adjacencyMatrix[i][j] == 1) {
+                    inverseAdjacencyMatrix[i][j] = -1;
+                } else if(this.adjacencyMatrix[i][j] == -1) {
+                    inverseAdjacencyMatrix[i][j] = 1;
+                } else {
+                    inverseAdjacencyMatrix[i][j] = 0;
+                }
+            }
+        }
+
+		return new AdjacencyMatrixDirectedGraph(this.getOrder(), this.getNbEdges(), inverseAdjacencyMatrix);
 	}
 
+    public int[][] getAdjacencyMatrix() {
+        return adjacencyMatrix;
+    }
+
+    public void setAdjacencyMatrix(int[][] adjacencyMatrix) {
+        this.adjacencyMatrix = adjacencyMatrix;
+    }
 }
