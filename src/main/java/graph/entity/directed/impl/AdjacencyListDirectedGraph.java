@@ -1,6 +1,7 @@
 package graph.entity.directed.impl;
 
 import graph.entity.directed.AbstractDirectedGraph;
+import graph.entity.directed.IDirectedGraph;
 import graph.util.ListConverter;
 
 import java.util.AbstractMap;
@@ -83,8 +84,13 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 			System.out.println();
 		}
 	}
-	
-    public List<Entry<Integer, List<Integer>>> getAdjacencyList() {
+
+	@Override
+	public IDirectedGraph inverse() {
+		return null;
+	}
+
+	public List<Entry<Integer, List<Integer>>> getAdjacencyList() {
 		return adjacencyList;
 	}
 
