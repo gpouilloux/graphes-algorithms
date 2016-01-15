@@ -97,4 +97,10 @@ public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 		}
 	}
 
+	@Override
+	public AdjacencyMatrixDirectedGraph inverse() {
+		// TODO
+		return null;
+	}
+
 }

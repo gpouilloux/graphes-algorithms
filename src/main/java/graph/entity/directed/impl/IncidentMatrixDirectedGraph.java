@@ -202,4 +202,10 @@ public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 		}
 	}
 
+	@Override
+	public IncidentMatrixDirectedGraph inverse() {
+		// TODO
+		return null;
+	}
+
 }
