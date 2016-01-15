@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 
-	private int[][] incidentMatrix;
+    private int[][] incidentMatrix;
 	private int[][] adjacencyMatrix;
 
 	/**
@@ -67,6 +67,12 @@ public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 
 		this.incidentMatrix = incidentMatrix;
 	}
+
+    public IncidentMatrixDirectedGraph(IncidentMatrixDirectedGraph incidentMatrix) {
+        this.order = incidentMatrix.getOrder();
+        this.nbEdges = incidentMatrix.getNbEdges();
+        this.incidentMatrix = incidentMatrix.getIncidentMatrix();
+    }
 
 	@Override
 	public int[][] getGraph() {
@@ -204,8 +210,32 @@ public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public IncidentMatrixDirectedGraph inverse() {
-		// TODO
-		return null;
+
+        int[][] inverseIncidentMatrix = new int[this.getOrder()][this.getNbEdges()];
+
+        for(int i=0; i<this.getOrder(); i++) {
+            for(int j=0; j<this.getNbEdges(); j++) {
+                if(this.incidentMatrix[i][j] == 1) {
+                    inverseIncidentMatrix[i][j] = -1;
+                } else if(this.incidentMatrix[i][j] == -1) {
+                    inverseIncidentMatrix[i][j] = 1;
+                } else {
+                    inverseIncidentMatrix[i][j] = 0;
+                }
+            }
+        }
+
+        IncidentMatrixDirectedGraph inverse = new IncidentMatrixDirectedGraph(this);
+        inverse.setIncidentMatrix(inverseIncidentMatrix);
+		return inverse;
 	}
+
+    public int[][] getIncidentMatrix() {
+        return incidentMatrix;
+    }
+
+    public void setIncidentMatrix(int[][] incidentMatrix) {
+        this.incidentMatrix = incidentMatrix;
+    }
 
 }

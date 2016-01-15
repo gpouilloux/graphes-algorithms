@@ -95,9 +95,9 @@ public class AdjacencyMatrixDirectedGraphTest {
         AdjacencyMatrixDirectedGraph result = this.adjacencyMatrix.inverse();
 
         int[][] adjacencyMatrix = {
-                { 0, -1, -1, 0, },
                 { 0, 0, 0, 0, },
-                { 0, -1, 0, 0, },
+                { 1, 0, 1, 0, },
+                { 1, 0, 0, 0, },
                 { 0, 0, 0, 0 }
         };
 

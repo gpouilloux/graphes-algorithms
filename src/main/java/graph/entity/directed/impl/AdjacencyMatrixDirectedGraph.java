@@ -104,13 +104,7 @@ public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 
         for(int i=0; i<this.order; i++) {
             for(int j=0; j<this.order; j++) {
-                if(this.adjacencyMatrix[i][j] == 1) {
-                    inverseAdjacencyMatrix[i][j] = -1;
-                } else if(this.adjacencyMatrix[i][j] == -1) {
-                    inverseAdjacencyMatrix[i][j] = 1;
-                } else {
-                    inverseAdjacencyMatrix[i][j] = 0;
-                }
+                inverseAdjacencyMatrix[i][j] = this.getAdjacencyMatrix()[j][i];
             }
         }
 
