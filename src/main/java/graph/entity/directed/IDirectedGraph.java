@@ -1,5 +1,7 @@
 package graph.entity.directed;
 
+import java.util.List;
+
 /**
  * Interface de manipulation des graphes orientés
  * @author gpouillo
@@ -65,5 +67,21 @@ public interface IDirectedGraph {
      * @return the inverse of the directed graph
      */
 	IDirectedGraph inverse();
+
+    /**
+     * Walk through the graph using BFS method
+     *
+     * @param baseVertex the vertex we use to start the walk
+     * @return the minimum distance of each vertex against the starting one
+     */
+    List<Integer> breadthFirstSearch(int baseVertex);
+
+    /**
+     * Walk through the graph using DFS method
+     * Imperative version
+     *
+     * @param baseVertex the vertex we use to start the walk
+     */
+    void depthFirstSearch(int baseVertex);
 	
 }
