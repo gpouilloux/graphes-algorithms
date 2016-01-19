@@ -9,6 +9,10 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
 	
 	protected int nbEdges;
 
+    private int[] start = new int[this.getOrder()];
+    private int[] end = new int[this.getOrder()];
+    private int time = 0;
+
 	public static int[][] getRandomDirectedGraph(int ordre, int nbEdges) {
 		int[][] adjacencyMatrix = new int[ordre][ordre];
 
@@ -61,6 +65,8 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
 		return minDistance;
 	}
 
+    // FIXME il faut récupérer toutes les composantes fortements connexes (voir explorerGraph())
+    // TODO stocker start & end
 	@Override
 	public void depthFirstSearch(int baseVertex) {
 		List<Boolean> mark = new ArrayList<>(Collections.nCopies(this.getOrder(), Boolean.FALSE));
@@ -70,14 +76,38 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
 		toVisit.push(baseVertex);
 
 		while(!toVisit.isEmpty()) {
-			int vertex = toVisit.pop();
-			for(int neighbor : this.getSuccessors(vertex)) {
-				if(Boolean.FALSE.equals(mark.get(neighbor))) {
-					mark.set(neighbor, Boolean.TRUE);
-					toVisit.push(neighbor);
-				}
-			}
-		}
+            int vertex = toVisit.pop();
+            for (int neighbor : this.getSuccessors(vertex)) {
+                if (Boolean.FALSE.equals(mark.get(neighbor))) {
+                    mark.set(neighbor, Boolean.TRUE);
+                    toVisit.push(neighbor);
+                }
+            }
+        }
+	}
+
+    Comparator<Map.Entry<Integer, Integer>> byMapValues = (left, right) -> left.getValue().compareTo(right.getValue());
+
+	@Override
+	public List<IDirectedGraph> computeConnectedGraphs() {
+        int baseVertex = (int)(Math.random() * this.getOrder()); // choose base vertex randomly
+		this.depthFirstSearch(baseVertex);
+
+        IDirectedGraph inverse = this.inverse();
+
+        List<Map.Entry<Integer, Integer>> endMap = new ArrayList<>();
+        for(int i=0; i<end.length; i++) {
+            endMap.add(new AbstractMap.SimpleEntry<>(i, end[i]));
+        }
+
+        // reverse order for array end
+        Collections.sort(endMap, byMapValues.reversed());
+
+        for(Map.Entry<Integer, Integer> end : endMap) {
+            inverse.depthFirstSearch(end.getKey());
+        }
+
+        return null;
 
 	}
 

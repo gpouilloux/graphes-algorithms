@@ -69,7 +69,7 @@ public interface IDirectedGraph {
 	IDirectedGraph inverse();
 
     /**
-     * Walk through the graph using BFS method
+     * Walk through the graph using BFS method (parcours en largeur)
      *
      * @param baseVertex the vertex we use to start the walk
      * @return the minimum distance of each vertex against the starting one
@@ -77,11 +77,20 @@ public interface IDirectedGraph {
     List<Integer> breadthFirstSearch(int baseVertex);
 
     /**
-     * Walk through the graph using DFS method
+     * Walk through the graph using DFS method (parcours en longueur)
      * Imperative version
      *
      * @param baseVertex the vertex we use to start the walk
      */
     void depthFirstSearch(int baseVertex);
+
+    /**
+     * Compute all connected graphs
+     * 1. Execute exploreGraph() and memorize end[]
+     * 2. Inverse graph (see lesson p.32)
+     * 3. Execute exploreGraph() by calling edges decrease order by end[]
+     * @return list of connected graphs
+     */
+    List<IDirectedGraph> computeConnectedGraphs();
 	
 }
