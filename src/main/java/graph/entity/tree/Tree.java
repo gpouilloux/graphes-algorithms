@@ -1,6 +1,10 @@
 package graph.entity.tree;
 
+import graph.util.ListConverter;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Tree ; compact representation
@@ -107,8 +111,51 @@ public class Tree {
         }
     }
 
-    public void prim() {
+    /**
+     * Implémentation naïve de l'algorithme PRIM (arbre de poids minimal)
+     *
+     * @return le cout à la fin du parcours
+     */
+    public int prim() {
+        // 1. Choisir un noeud de manière aléatoire
+        // 2. Déterminer le prédecesseur avec le cout minimal
+        // 3. Actualiser le cout à chaque rencontre d'un noeud et marquer le noeud traversé
 
+        List<Integer> couverture = new ArrayList<>();
+        List<Integer> sommetATraiter = ListConverter.toList(this.getVertexes());
+        int sommetCourantId = (int) Math.round(Math.random() * this.getVertexes().length-1);
+        Integer sommetCourant = sommetATraiter.remove(sommetCourantId);
+        int cout = sommetCourant; // stockage du cout global
+        couverture.add(sommetCourant);
+
+        while(couverture.size()<this.getVertexes().length) {
+
+            // Determiner le prédecesseur de poids minimal du sommet courant
+            final int leftSonId = 2 * sommetCourantId + 1;
+            final int rightSonId = 2 * sommetCourantId + 2;
+
+            // Prendre le père s'il n'y a plus de fils car, par défaut, il a le coût minimal
+            if(leftSonId >= sommetATraiter.size() || rightSonId >= sommetATraiter.size()) {
+                sommetCourantId = (sommetCourantId-1)/2;
+            }
+
+            // Comparaison des fils
+             else {
+                Integer leftSon = sommetATraiter.get(leftSonId);
+                Integer rightSon = sommetATraiter.get(rightSonId);
+                if (leftSon <= rightSon) {
+                    sommetCourantId = leftSonId;
+                } else {
+                    sommetCourantId = rightSonId;
+                }
+            }
+
+            cout += vertexes[sommetCourantId];
+            sommetCourant = sommetATraiter.remove(sommetCourantId);
+            couverture.add(sommetCourant);
+        }
+
+        return cout;
     }
 
     /**

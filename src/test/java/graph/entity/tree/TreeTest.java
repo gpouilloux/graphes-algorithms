@@ -51,5 +51,11 @@ public class TreeTest {
         assertThat(this.tree, equalTo(new Tree(expected)));
     }
 
+    @Test
+    public void testPrim() {
+        int cout = this.tree.prim();
+
+        System.out.println(String.format("Le cout est de %d", cout));
+    }
 
 }
