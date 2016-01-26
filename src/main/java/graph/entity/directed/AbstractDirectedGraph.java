@@ -127,14 +127,25 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
     }
 
     /**
-     * Finds the minimum element in a list of Integer and removes it
-     * @param list the list of Integer
-     * @return the minimum element in the list
+     * Finds the minimum element in a weightArray of Integer and removes it
+     *
+     * @param weightArray the weightArray of Integer
+     * @param vertexes the vertexes
+     * @return the minimum element in the weightArray
      */
-    private Integer peekMinElement(List<Integer> list) {
-        Integer min = list.stream().min(comparingInt(list::get)).get();
-        list.remove(min);
-        return min;
+    private Integer peekMinElement(int[] weightArray, List<Integer> vertexes) {
+        Integer min = weightArray[0];
+        Integer minElt = vertexes.get(0);
+        for(int i=1; i<vertexes.size(); i++) {
+            Integer elt = vertexes.get(i);
+            if(weightArray[i] < min) {
+                min = weightArray[i];
+                minElt = elt;
+            }
+        }
+
+        vertexes.remove(minElt);
+        return minElt;
     }
 
     /**
@@ -144,7 +155,6 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
      * @param cout matrice des couts
      */
     public BinaryHeap prim(int baseVertex, int[][] cout) {
-        BinaryHeap binaryHeap = new BinaryHeap(new int[this.getOrder()], new int[this.getOrder()]);
         List<Integer> successors = ListConverter.toList(this.getSuccessors(baseVertex));
         int predecessors[] = new int[this.getOrder()];
         int weights[] = new int[this.getOrder()];
@@ -159,6 +169,7 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
                 weights[i] = Integer.MAX_VALUE;
             }
         }
+        weights[baseVertex] = 0;
 
         // pour le parcours de tous les sommets sauf celui de base
         List<Integer> vertexes = new ArrayList<>();
@@ -168,8 +179,11 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
             }
         }
 
+        BinaryHeap binaryHeap = new BinaryHeap(new int[]{weights[baseVertex]}, new int[]{baseVertex});
+
+
         while(!vertexes.isEmpty()) {
-            int vertex = this.peekMinElement(vertexes);
+            int vertex = this.peekMinElement(weights, vertexes); // get vertex with lowest weight
             binaryHeap.insert(weights[vertex], vertex); // insert in the binary heap
             int succ[] = this.getSuccessors(vertex);
             for(int i=0; i<succ.length; i++) {
