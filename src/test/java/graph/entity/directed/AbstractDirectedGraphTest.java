@@ -51,7 +51,7 @@ public class AbstractDirectedGraphTest {
     public void testPrim() {
         int[][] cost = Cost.getCostMatrix(this.directedGraph, MAX_COST);
         // TODO test prim algorithm
-        BinaryHeap bh = this.directedGraph.prim(0, cost);
+        BinaryHeap bh = this.directedGraph.prim(0);
         bh.display();
     }
 }

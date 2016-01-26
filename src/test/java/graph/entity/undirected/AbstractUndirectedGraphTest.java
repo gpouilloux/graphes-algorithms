@@ -1,5 +1,6 @@
-package graph.entity.undirected.impl;
+package graph.entity.undirected;
 
+import graph.entity.undirected.impl.AdjacencyMatrixUndirectedGraph;
 import graph.util.BinaryHeap;
 import graph.entity.undirected.AbstractUndirectedGraph;
 import graph.util.Cost;
@@ -11,11 +12,12 @@ import org.junit.Test;
  */
 public class AbstractUndirectedGraphTest {
 
-
-    /**
-     * Maximum cost to set on an edge
-     */
-    public static final int MAX_COST = 10;
+	private int[][] adjacencyMatrix = {
+			{ 0, 2, 2, 3, },
+			{ 2, 0, 0, 2, },
+			{ 2, 0, 0, 1, },
+			{ 3, 2, 1, 0 }
+	};
 
     private AbstractUndirectedGraph undirectedGraph;
 
@@ -24,14 +26,7 @@ public class AbstractUndirectedGraphTest {
      */
     @Before
     public void initialize() {
-        int[][] adjacencyMatrix = {
-                { 0, 1, 1, 1, },
-                { 1, 0, 0, 1, },
-                { 1, 0, 0, 1, },
-                { 1, 1, 1, 0 }
-        };
-
-        this.undirectedGraph = new AdjacencyMatrixUndirectedGraph(4, 3, adjacencyMatrix);
+        this.undirectedGraph = new AdjacencyMatrixUndirectedGraph(4, 5, this.adjacencyMatrix);
     }
 
     @Test
@@ -48,9 +43,8 @@ public class AbstractUndirectedGraphTest {
 
     @Test
     public void testPrim() {
-        int[][] cost = Cost.getCostMatrix(this.undirectedGraph, MAX_COST);
-        // TODO test prim algorithm
-        BinaryHeap bh = this.undirectedGraph.prim(0, cost);
+        // TODO define an expected result so we can assert something
+	    BinaryHeap bh = this.undirectedGraph.prim(0);
         bh.display();
     }
 }

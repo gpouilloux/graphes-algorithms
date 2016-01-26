@@ -67,8 +67,7 @@ public interface IGraph {
     /**
      * Prim algorithm with BFS method
      *
-     * @param baseVertex le sommet de base
-     * @param cout matrice des couts
+     * @param baseVertex the base vertex used when starting the walk
      */
-    BinaryHeap prim(int baseVertex, int[][] cout);
+    BinaryHeap prim(int baseVertex);
 }

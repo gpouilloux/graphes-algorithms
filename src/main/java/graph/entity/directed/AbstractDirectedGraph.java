@@ -95,10 +95,11 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
 
     // FIXME does not seem to work, need to focus on undirected graph first
     @Override
-    public BinaryHeap prim(int baseVertex, int[][] cout) {
+    public BinaryHeap prim(int baseVertex) {
         List<Integer> successors = ListConverter.toList(this.getSuccessors(baseVertex));
         int predecessors[] = new int[this.getOrder()];
         int weights[] = new int[this.getOrder()];
+        int cout[][] = this.getGraph();
 
         // initialization
         for(int i = 0; i< weights.length; i++) {

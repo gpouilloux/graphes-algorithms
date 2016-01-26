@@ -52,10 +52,9 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
      * @param adjacencyList la liste d'adjacence
      */
     public IncidentMatrixUndirectedGraph(AdjacencyListUndirectedGraph adjacencyList) {
-
-
         this.order = adjacencyList.getOrder();
         this.nbEdges = adjacencyList.getNbEdges();
+	    this.adjacencyMatrix = adjacencyList.getGraph();
 
         int[][] incidentMatrix = new int[this.order][this.nbEdges];
 
@@ -64,8 +63,9 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
         for(Entry<Integer, List<Integer>> e : adjacencyList.getAdjacencyList()) { // § number of vertexes
             for(Integer neighbor : e.getValue()) { // $ number of edges / 2
-                incidentMatrix[vertexNumber][nbEdges - remainingEdges] = 1;
-                incidentMatrix[neighbor][nbEdges - remainingEdges] = 1;
+	            int cost = adjacencyMatrix[vertexNumber][neighbor];
+                incidentMatrix[vertexNumber][nbEdges - remainingEdges] = cost;
+                incidentMatrix[neighbor][nbEdges - remainingEdges] = cost;
                 remainingEdges--;
 
                 // remove same edge as the graph is undirected
@@ -95,9 +95,9 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
         int[] edges = this.incidentMatrix[x];
         for(int i=0; i<edges.length; i++) {
-            if(edges[i] == 1) {
+            if(edges[i] > 0) {
                 for(int j=0; j<this.order; j++) {
-                    if(this.incidentMatrix[j][i] == 1 && j != x) {
+                    if(this.incidentMatrix[j][i] == edges[i] && j != x) {
                         neighbors.add(j);
                     }
                 }
@@ -115,7 +115,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         int i=0;
 
         while(!isEdge && i < edgesOfX.length) {
-            if(edgesOfX[i] == 1 && edgesOfY[i] == 1) {
+            if(edgesOfX[i] > 0 && edgesOfY[i] > 0 && edgesOfX[i] == edgesOfY[i]) {
                 isEdge = true;
             }
             i++;
@@ -148,7 +148,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         int columnEdge=0; // to keep the column id to remove
 
         while(!edgeFounded && columnEdge < edgesOfX.length) {
-            if(edgesOfX[columnEdge] == 1 && edgesOfY[columnEdge] == 1) {
+            if(edgesOfX[columnEdge] > 0 && edgesOfY[columnEdge] > 0 && edgesOfX[columnEdge] == edgesOfY[columnEdge]) {
                 edgeFounded = true;
             } else {
                 columnEdge++;
@@ -175,7 +175,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
     }
 
     @Override
-    public void addEdge(int x, int y) {
+    public void addEdge(int x, int y, int cost) {
         int[][] newIncidentMatrix = new int[this.order][this.nbEdges+1];
 
         for(int i=0; i<this.order; i++) {
@@ -183,8 +183,8 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
                 newIncidentMatrix[i][j] = this.incidentMatrix[i][j];
             }
         }
-        newIncidentMatrix[x][this.nbEdges] = 1;
-        newIncidentMatrix[y][this.nbEdges] = 1;
+        newIncidentMatrix[x][this.nbEdges] = cost;
+        newIncidentMatrix[y][this.nbEdges] = cost;
 
         this.incidentMatrix = newIncidentMatrix;
         this.nbEdges++;
@@ -207,10 +207,8 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
         for(int i=0; i<this.getOrder(); i++) {
             for(int j=0; j<this.getNbEdges(); j++) {
-                if(this.incidentMatrix[i][j] == 1) {
-                    inverseIncidentMatrix[i][j] = -1;
-                } else if(this.incidentMatrix[i][j] == -1) {
-                    inverseIncidentMatrix[i][j] = 1;
+                if(this.incidentMatrix[i][j] != 0) {
+                    inverseIncidentMatrix[i][j] = -this.incidentMatrix[i][j];
                 } else {
                     inverseIncidentMatrix[i][j] = 0;
                 }

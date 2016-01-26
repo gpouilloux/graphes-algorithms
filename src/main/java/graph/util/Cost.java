@@ -6,6 +6,8 @@ import graph.entity.IGraph;
  * Utility class for the generation of random cost matrix
  * @author mclaveau
  */
+// FIXME terminates dependencies on this class and remove it!
+@Deprecated
 public class Cost {
 
     private Cost() {

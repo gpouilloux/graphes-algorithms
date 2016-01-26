@@ -19,10 +19,10 @@ public class AdjacencyListUndirectedGraphTest {
     @Before
     public void initialize() {
         int[][] adjacencyMatrix = {
-                { 0, 0, 1, 1, },
-                { 0, 0, 0, 1, },
-                { 1, 0, 0, 0, },
-                { 1, 1, 0, 0 }
+                { 0, 0, 4, 2, },
+                { 0, 0, 0, 3, },
+                { 4, 0, 0, 0, },
+                { 2, 3, 0, 0 }
         };
 
         this.adjacencyList = new AdjacencyListUndirectedGraph(new AdjacencyMatrixUndirectedGraph(4, 3, adjacencyMatrix));
@@ -66,7 +66,7 @@ public class AdjacencyListUndirectedGraphTest {
 
         assertThat(this.adjacencyList.isEdge(x, y), equalTo(Boolean.FALSE));
 
-        this.adjacencyList.addEdge(x, y);
+        this.adjacencyList.addEdge(x, y, 5);
 
         assertThat(this.adjacencyList.isEdge(x, y), equalTo(Boolean.TRUE));
 

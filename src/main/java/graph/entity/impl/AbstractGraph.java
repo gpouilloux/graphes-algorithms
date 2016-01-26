@@ -18,6 +18,9 @@ public abstract class AbstractGraph implements IGraph {
     protected int[] end;
     protected int time;
 
+	// Maximum cost to put on an edge
+    protected static final int MAX_COST = 10;
+
     @Override
     public List<IGraph> computeConnectedGraphs() {
         int baseVertex = (int)(Math.random() * this.getOrder()); // choose base vertex randomly

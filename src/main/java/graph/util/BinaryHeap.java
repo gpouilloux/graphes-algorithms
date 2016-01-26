@@ -125,7 +125,7 @@ public class BinaryHeap {
     }
 
     /**
-     * Check if a vertex has children or not
+     * Check if a vertex has all its children or not
      * @param i the vertex
      * @return true if the vertex has children, false otherwise
      */
@@ -134,7 +134,7 @@ public class BinaryHeap {
     }
 
     public void display() {
-        // TODO
+		// TODO nice display of a binary heap
     }
 
     public int[] getWeights() {

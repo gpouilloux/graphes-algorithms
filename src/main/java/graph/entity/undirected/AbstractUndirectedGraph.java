@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 
 public abstract class AbstractUndirectedGraph extends AbstractGraph implements IUndirectedGraph {
 
-
 	/**
 	 * Generate a random undirected graph
 	 * @param order the number of vertexes
@@ -38,8 +37,9 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 
 		// Mise à jour de la matrice d'adjacence
 		for(Map.Entry<Integer, Integer> edge : selectedEdges) {
-			adjacencyMatrix[edge.getKey()][edge.getValue()] = 1;
-			adjacencyMatrix[edge.getValue()][edge.getKey()] = 1;
+			int cost = (int) Math.round(Math.random() * MAX_COST) + 1;
+			adjacencyMatrix[edge.getKey()][edge.getValue()] = cost;
+			adjacencyMatrix[edge.getValue()][edge.getKey()] = cost;
 		}
 
 		return adjacencyMatrix;
@@ -93,16 +93,16 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 	}
 
 
-    // FIXME copied from {graph.entity.directed.AbstractDirectedGraph} but need to be fixed
-    @Override
-	public BinaryHeap prim(int baseVertex, int[][] cout) {
-		List<Integer> successors = ListConverter.toList(this.getNeighbors(baseVertex));
+	@Override
+	public BinaryHeap prim(int baseVertex) {
+		List<Integer> neighbors = ListConverter.toList(this.getNeighbors(baseVertex));
 		int predecessors[] = new int[this.getOrder()];
 		int weights[] = new int[this.getOrder()];
+		int cout[][] = this.getGraph();
 
 		// initialization
 		for(int i = 0; i< weights.length; i++) {
-			if(successors.contains(i)) {
+			if(neighbors.contains(i)) {
 				predecessors[i] = baseVertex;
 				weights[i] = cout[baseVertex][i];
 			} else {
@@ -112,7 +112,7 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 		}
 		weights[baseVertex] = 0;
 
-		// pour le parcours de tous les sommets sauf celui de base
+		// get ready to walk through all the vertexes except the base one
 		List<Integer> vertexes = new ArrayList<>();
 		for(int i=0; i<this.getOrder(); i++) {
 			if(i != baseVertex) {
@@ -120,17 +120,19 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 			}
 		}
 
+		// initialize the binary heap with the base vertex
 		BinaryHeap binaryHeap = new BinaryHeap(new int[]{weights[baseVertex]}, new int[]{baseVertex});
 
-
+		// keep iterating while we have vertexes to discover
 		while(!vertexes.isEmpty()) {
 			int vertex = this.peekMinElement(weights, vertexes); // get vertex with lowest weight
 			binaryHeap.insert(weights[vertex], vertex); // insert in the binary heap
-			int succ[] = this.getNeighbors(vertex);
-			for(int i=0; i<succ.length; i++) {
-				if(vertexes.contains(i) && weights[i] > cout[vertex][i]) {
-					weights[i] = cout[vertex][i];
-					predecessors[i] = vertex;
+			int succs[] = this.getNeighbors(vertex);
+			for(int i=0; i<succs.length; i++) {
+				int succ = succs[i];
+				if(vertexes.contains(succ) && weights[succ] > cout[vertex][succ]) {
+					weights[succ] = cout[vertex][succ];
+					predecessors[succ] = vertex;
 				}
 			}
 		}

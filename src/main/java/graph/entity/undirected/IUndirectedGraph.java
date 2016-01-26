@@ -8,26 +8,30 @@ import graph.entity.IGraph;
  *
  */
 public interface IUndirectedGraph extends IGraph {
-	
+
 	/**
-	 * Récupère les voisins d'un sommet
-	 * @param x l'identifiant du sommet
-	 * @return le tableau des identifiants des sommets voisins du sommet x
+	 * Returns the vertex's neighbors
+	 *
+	 * @param x the vertex's id
+	 * @return an array containing the id of all the neighbors
 	 */
 	int[] getNeighbors(int x);
-	
+
 	/**
-	 * Supprime l'arête (x,y) du graphe si elle existe
-	 * @param x l'identifiant du premier sommet
-	 * @param y l'identifiant du second sommet
+	 * Remove the edge (x,y) from the graph
+	 *
+	 * @param x the first vertex's id
+	 * @param y the second vertex's id
 	 */
 	void removeEdge(int x, int y);
-	
+
 	/**
-	 * Ajoute l'arête (x,y) au graphe
-	 * @param x l'identifiant du premier sommet
-	 * @param y l'identifiant du second sommet
+	 * Add the edge (x,y) into the graph
+	 *
+	 * @param x the first vertex's id
+	 * @param y the second vertex's id
+	 * @param cost the cost to put on the edge
 	 */
-	void addEdge(int x, int y);
+	void addEdge(int x, int y, int cost);
 
 }

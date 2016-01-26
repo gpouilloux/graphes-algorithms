@@ -19,10 +19,10 @@ public class IncidentMatrixUndirectedGraphTest {
     @Before
     public void initialize() {
         int[][] adjacencyMatrix = {
-                { 0, 0, 1, 1, },
-                { 0, 0, 0, 1, },
-                { 1, 0, 0, 0, },
-                { 1, 1, 0, 0 }
+                { 0, 0, 2, 1, },
+                { 0, 0, 0, 3, },
+                { 2, 0, 0, 0, },
+                { 1, 3, 0, 0 }
         };
 
         this.incidentMatrix = new IncidentMatrixUndirectedGraph(new AdjacencyListUndirectedGraph(
@@ -67,7 +67,7 @@ public class IncidentMatrixUndirectedGraphTest {
 
         assertThat(this.incidentMatrix.isEdge(x, y), equalTo(Boolean.FALSE));
 
-        this.incidentMatrix.addEdge(x, y);
+        this.incidentMatrix.addEdge(x, y, 5);
 
         assertThat(this.incidentMatrix.isEdge(x, y), equalTo(Boolean.TRUE));
 

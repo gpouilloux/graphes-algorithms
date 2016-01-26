@@ -32,7 +32,7 @@ public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 		// grabbing the neighbors of the vertex x
 		List<Integer> neighbors = new ArrayList<>();
 		for(int i=0; i<this.order; i++) {
-			if(this.adjacencyMatrix[x][i] == 1) {
+			if(this.isEdge(x, i)) {
 				neighbors.add(i);
 			}
 		}
@@ -44,7 +44,7 @@ public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
 	@Override
 	public boolean isEdge(int x, int y) {
-		return this.adjacencyMatrix[x][y] == 1;
+		return this.adjacencyMatrix[x][y] > 0;
 	}
 
 	@Override
@@ -71,9 +71,9 @@ public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 	}
 
 	@Override
-	public void addEdge(int x, int y) {
-		this.adjacencyMatrix[x][y] = 1;
-		this.adjacencyMatrix[y][x] = 1;
+	public void addEdge(int x, int y, int cost) {
+		this.adjacencyMatrix[x][y] = cost;
+		this.adjacencyMatrix[y][x] = cost;
 		this.nbEdges++;
 	}
 

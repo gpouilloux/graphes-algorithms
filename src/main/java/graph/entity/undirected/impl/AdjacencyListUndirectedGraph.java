@@ -57,16 +57,13 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 	}
 
 	@Override
-	public void addEdge(int x, int y) {
+	public void addEdge(int x, int y, int cost) {
 		this.adjacencyList.get(x).getValue().add(y);
 		this.nbEdges++;
 	}
 
 	@Override
 	public AdjacencyListUndirectedGraph inverse() {
-		// private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<>();
-
-
 		List<Integer> inverseVertexes = new ArrayList<>(Collections.nCopies(this.getOrder(), 0));
 
 

@@ -1,12 +1,12 @@
-package graph.entity.tree;
+package graph.util;
 
-import graph.util.BinaryHeap;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static graph.util.ListConverter.*;
+import static graph.util.ListConverter.toArray;
+import static graph.util.ListConverter.toList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
