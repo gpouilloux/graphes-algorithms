@@ -96,9 +96,7 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 		// Compute the number of successors for each vertexes
 		for(int i=0; i<this.adjacencyList.size(); i++) {
 			Entry<Integer, List<Integer>> vertex = this.adjacencyList.get(i);
-			vertex.getValue().forEach(s -> {
-				inverseVertexes.set(s.intValue(), inverseVertexes.get(s)+1);
-			});
+			vertex.getValue().forEach(s -> inverseVertexes.set(s, inverseVertexes.get(s)+1));
 		}
 
 		// Sum the number of successors

@@ -1,29 +1,20 @@
 package graph.entity.undirected;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import graph.entity.impl.AbstractGraph;
+import graph.util.BinaryHeap;
+import graph.util.ListConverter;
+
+import java.util.*;
 import java.util.Map.Entry;
 
-public abstract class AbstractUndirectedGraph implements IUndirectedGraph {
-
-	/**
-	 * Number of vertex
-	 */
-	protected int order;
-	
-	/**
-	 * Number of edges
-	 */
-	protected int nbEdges;
+public abstract class AbstractUndirectedGraph extends AbstractGraph implements IUndirectedGraph {
 
 
 	/**
-	 * Génère un graphe non orienté de manière aléatoire
-	 * @param order l'odre du graphe (i.e nombre de sommets)
-	 * @param nbEdges le nombre d'arêtes
-	 * @return le graphe non orienté aléatoire
+	 * Generate a random undirected graph
+	 * @param order the number of vertexes
+	 * @param nbEdges the number of edges
+	 * @return the random undirected graph generated
 	 */
 	public static int[][] getRandomUndirectedGraph(int order, int nbEdges) {
 
@@ -54,20 +45,97 @@ public abstract class AbstractUndirectedGraph implements IUndirectedGraph {
 		return adjacencyMatrix;
 	}
 
-	public int getOrder() {
-		return order;
+	@Override
+	public List<Integer> breadthFirstSearch(int baseVertex) {
+		List<Boolean> mark = new ArrayList<>(Collections.nCopies(this.getOrder(), Boolean.FALSE));
+		mark.set(baseVertex, Boolean.TRUE);
+
+		List<Integer> minDistance = new ArrayList<>(Collections.nCopies(this.getOrder(), 0));
+
+		Queue<Integer> toVisit = new LinkedList<>();
+		toVisit.add(baseVertex);
+
+		while(!toVisit.isEmpty()) {
+			int vertex = toVisit.poll();
+			for(int neighbor : this.getNeighbors(vertex)) {
+				if(Boolean.FALSE.equals(mark.get(neighbor))) {
+					mark.set(neighbor, Boolean.TRUE);
+					minDistance.set(neighbor, minDistance.get(vertex)+1);
+					toVisit.add(neighbor);
+				}
+			}
+		}
+
+		return minDistance;
 	}
 
-	public void setOrder(int ordre) {
-		this.order = ordre;
+	// FIXME il faut récupérer toutes les composantes connexes (voir explorerGraph()) grâce à start et end
+	@Override
+	public void depthFirstSearch(int baseVertex) {
+		this.initializeTime();
+		List<Boolean> mark = new ArrayList<>(Collections.nCopies(this.getOrder(), Boolean.FALSE));
+		mark.set(baseVertex, Boolean.TRUE);
+
+		Stack<Integer> toVisit = new Stack<>();
+		toVisit.push(baseVertex);
+
+		while(!toVisit.isEmpty()) {
+			int vertex = toVisit.pop();
+			start[vertex] = time++;
+			for (int neighbor : this.getNeighbors(vertex)) {
+				if (Boolean.FALSE.equals(mark.get(neighbor))) {
+					mark.set(neighbor, Boolean.TRUE);
+					toVisit.push(neighbor);
+				}
+			}
+			end[vertex] = time++;
+		}
 	}
 
-	public int getNbEdges() {
-		return nbEdges;
-	}
 
-	public void setNbEdges(int nbEdges) {
-		this.nbEdges = nbEdges;
+    // FIXME copied from {graph.entity.directed.AbstractDirectedGraph} but need to be fixed
+    @Override
+	public BinaryHeap prim(int baseVertex, int[][] cout) {
+		List<Integer> successors = ListConverter.toList(this.getNeighbors(baseVertex));
+		int predecessors[] = new int[this.getOrder()];
+		int weights[] = new int[this.getOrder()];
+
+		// initialization
+		for(int i = 0; i< weights.length; i++) {
+			if(successors.contains(i)) {
+				predecessors[i] = baseVertex;
+				weights[i] = cout[baseVertex][i];
+			} else {
+				predecessors[i] = -1; // -1 is like nil :-)
+				weights[i] = Integer.MAX_VALUE;
+			}
+		}
+		weights[baseVertex] = 0;
+
+		// pour le parcours de tous les sommets sauf celui de base
+		List<Integer> vertexes = new ArrayList<>();
+		for(int i=0; i<this.getOrder(); i++) {
+			if(i != baseVertex) {
+				vertexes.add(i);
+			}
+		}
+
+		BinaryHeap binaryHeap = new BinaryHeap(new int[]{weights[baseVertex]}, new int[]{baseVertex});
+
+
+		while(!vertexes.isEmpty()) {
+			int vertex = this.peekMinElement(weights, vertexes); // get vertex with lowest weight
+			binaryHeap.insert(weights[vertex], vertex); // insert in the binary heap
+			int succ[] = this.getNeighbors(vertex);
+			for(int i=0; i<succ.length; i++) {
+				if(vertexes.contains(i) && weights[i] > cout[vertex][i]) {
+					weights[i] = cout[vertex][i];
+					predecessors[i] = vertex;
+				}
+			}
+		}
+
+		return binaryHeap;
 	}
 
 }

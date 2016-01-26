@@ -23,7 +23,7 @@ public class ListConverter {
 		List<Integer> res = new ArrayList<>();
 
 		for (int element : array) {
-			res.add(new Integer(element));
+			res.add(element);
 		}
 		
 		return res;

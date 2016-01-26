@@ -1,32 +1,27 @@
 package graph.entity.directed;
 
-import graph.entity.tree.BinaryHeap;
+import graph.entity.impl.AbstractGraph;
+import graph.util.BinaryHeap;
 import graph.util.ListConverter;
 
 import java.util.*;
 import java.util.Map.Entry;
 
-import static java.util.Comparator.comparingInt;
+public abstract class AbstractDirectedGraph extends AbstractGraph implements IDirectedGraph {
 
-public abstract class AbstractDirectedGraph implements IDirectedGraph {
-
-    protected int order;
-
-    protected int nbEdges;
-
-    private int[] start;
-    private int[] end;
-    private int time;
-
-    public static int[][] getRandomDirectedGraph(int ordre, int nbEdges) {
-
-
-        int[][] adjacencyMatrix = new int[ordre][ordre];
+    /**
+     * Generate a random directed graph
+     * @param order the number of vertexes
+     * @param nbEdges the number of edges
+     * @return the random directed graph generated
+     */
+    public static int[][] getRandomDirectedGraph(int order, int nbEdges) {
+        int[][] adjacencyMatrix = new int[order][order];
 
         // Récupération de toutes les arêtes
         List<Entry<Integer, Integer>> edges = new ArrayList<>();
-        for(int i=0; i<ordre; i++) {
-            for(int j=0; j<ordre; j++) {
+        for(int i = 0; i< order; i++) {
+            for(int j = 0; j< order; j++) {
                 if(i != j)
                     edges.add(new AbstractMap.SimpleEntry<>(i, j));
             }
@@ -72,11 +67,6 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
         return minDistance;
     }
 
-    private void initializeTime() {
-        this.time = 0;
-        this.start = new int[this.getOrder()];
-        this.end = new int[this.getOrder()];
-    }
 
     // FIXME il faut récupérer toutes les composantes fortements connexes (voir explorerGraph())
     // TODO stocker start & end
@@ -102,58 +92,9 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
         }
     }
 
-    Comparator<Map.Entry<Integer, Integer>> byMapValues = (left, right) -> left.getValue().compareTo(right.getValue());
 
+    // FIXME does not seem to work, need to focus on undirected graph first
     @Override
-    public List<IDirectedGraph> computeConnectedGraphs() {
-        int baseVertex = (int)(Math.random() * this.getOrder()); // choose base vertex randomly
-        this.depthFirstSearch(baseVertex);
-
-        IDirectedGraph inverse = this.inverse();
-
-        List<Map.Entry<Integer, Integer>> endMap = new ArrayList<>();
-        for(int i=0; i<end.length; i++) {
-            endMap.add(new AbstractMap.SimpleEntry<>(i, end[i]));
-        }
-
-        // reverse order for array end
-        Collections.sort(endMap, byMapValues.reversed());
-
-        for(Map.Entry<Integer, Integer> end : endMap) {
-            inverse.depthFirstSearch(end.getKey());
-        }
-
-        return null;
-    }
-
-    /**
-     * Finds the minimum element in a weightArray of Integer and removes it
-     *
-     * @param weightArray the weightArray of Integer
-     * @param vertexes the vertexes
-     * @return the minimum element in the weightArray
-     */
-    private Integer peekMinElement(int[] weightArray, List<Integer> vertexes) {
-        Integer min = weightArray[0];
-        Integer minElt = vertexes.get(0);
-        for(int i=1; i<vertexes.size(); i++) {
-            Integer elt = vertexes.get(i);
-            if(weightArray[i] < min) {
-                min = weightArray[i];
-                minElt = elt;
-            }
-        }
-
-        vertexes.remove(minElt);
-        return minElt;
-    }
-
-    /**
-     * Prim algorithm with BFS method
-     *
-     * @param baseVertex le sommet de base
-     * @param cout matrice des couts
-     */
     public BinaryHeap prim(int baseVertex, int[][] cout) {
         List<Integer> successors = ListConverter.toList(this.getSuccessors(baseVertex));
         int predecessors[] = new int[this.getOrder()];
@@ -197,19 +138,4 @@ public abstract class AbstractDirectedGraph implements IDirectedGraph {
         return binaryHeap;
     }
 
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public int getNbEdges() {
-        return nbEdges;
-    }
-
-    public void setNbEdges(int nbEdges) {
-        this.nbEdges = nbEdges;
-    }
 }

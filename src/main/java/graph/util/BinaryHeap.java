@@ -1,4 +1,4 @@
-package graph.entity.tree;
+package graph.util;
 
 import java.util.Arrays;
 
@@ -18,8 +18,8 @@ public class BinaryHeap {
 
     /**
      * Build a tree from an array of weights
-     * @param weights
-     * @param indexes
+     * @param weights list of weights
+     * @param indexes list of indexes
      */
     public BinaryHeap(int[] weights, int[] indexes) {
         this.weights = new int[weights.length];
@@ -61,7 +61,7 @@ public class BinaryHeap {
     /**
      * Insert an index in {BinaryHeap}
      *
-     * @param weight
+     * @param weight the weight
      * @param index the index
      */
     public void insert(int weight, int index) {

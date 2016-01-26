@@ -78,6 +78,20 @@ public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 	}
 
 	@Override
+	public AdjacencyMatrixUndirectedGraph inverse() {
+
+		int[][] inverseAdjacencyMatrix = new int[this.getOrder()][this.getOrder()];
+
+		for(int i=0; i<this.order; i++) {
+			for(int j=0; j<this.order; j++) {
+				inverseAdjacencyMatrix[i][j] = this.getAdjacencyMatrix()[j][i];
+			}
+		}
+
+		return new AdjacencyMatrixUndirectedGraph(this.getOrder(), this.getNbEdges(), inverseAdjacencyMatrix);
+	}
+
+	@Override
 	public void display() {
 		for(int i=0; i<this.order; i++) {
 			for(int j=0; j<this.order; j++) {
@@ -86,6 +100,10 @@ public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 			System.out.println("");
 		}
 	}
+
+    public int[][] getAdjacencyMatrix() {
+        return adjacencyMatrix;
+    }
 	
 
 }

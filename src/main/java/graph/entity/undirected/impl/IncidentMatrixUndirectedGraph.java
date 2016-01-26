@@ -77,6 +77,12 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         this.incidentMatrix = incidentMatrix;
     }
 
+    public IncidentMatrixUndirectedGraph(IncidentMatrixUndirectedGraph incidentMatrix) {
+        this.order = incidentMatrix.getOrder();
+        this.nbEdges = incidentMatrix.getNbEdges();
+        this.incidentMatrix = incidentMatrix.getIncidentMatrix();
+    }
+
 
     @Override
     public int[][] getGraph() {
@@ -192,6 +198,36 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
             }
             System.out.println();
         }
+    }
+
+    @Override
+    public IncidentMatrixUndirectedGraph inverse() {
+
+        int[][] inverseIncidentMatrix = new int[this.getOrder()][this.getNbEdges()];
+
+        for(int i=0; i<this.getOrder(); i++) {
+            for(int j=0; j<this.getNbEdges(); j++) {
+                if(this.incidentMatrix[i][j] == 1) {
+                    inverseIncidentMatrix[i][j] = -1;
+                } else if(this.incidentMatrix[i][j] == -1) {
+                    inverseIncidentMatrix[i][j] = 1;
+                } else {
+                    inverseIncidentMatrix[i][j] = 0;
+                }
+            }
+        }
+
+        IncidentMatrixUndirectedGraph inverse = new IncidentMatrixUndirectedGraph(this);
+        inverse.setIncidentMatrix(inverseIncidentMatrix);
+        return inverse;
+    }
+
+    public int[][] getIncidentMatrix() {
+        return incidentMatrix;
+    }
+
+    public void setIncidentMatrix(int[][] incidentMatrix) {
+        this.incidentMatrix = incidentMatrix;
     }
 
 }

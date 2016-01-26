@@ -1,5 +1,6 @@
 package graph.entity.tree;
 
+import graph.util.BinaryHeap;
 import org.junit.Before;
 import org.junit.Test;
 

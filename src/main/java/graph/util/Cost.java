@@ -1,22 +1,25 @@
 package graph.util;
 
-import graph.entity.directed.AbstractDirectedGraph;
+import graph.entity.IGraph;
 
 /**
- * Classe permettant la manipulation des matrices de coûts
+ * Utility class for the generation of random cost matrix
  * @author mclaveau
  */
 public class Cost {
 
+    private Cost() {
+        // not allowed to instantiate this util class
+    }
 
-    public static int[][] getCostMatrix(AbstractDirectedGraph directedGraph, int maxCost) {
-        int ordre = directedGraph.getGraph().length;
+    public static int[][] getCostMatrix(IGraph graph, int maxCost) {
+        int ordre = graph.getGraph().length;
         int[][] costMatrix = new int[ordre][ordre];
 
         for(int i = 0 ; i < ordre ; i++) {
             for(int j = 0 ; j < ordre ; j++) {
                 if (i != j) {
-                    if (directedGraph.getGraph()[i][j] == 1) {
+                    if (graph.getGraph()[i][j] == 1) {
                         if (costMatrix[j][i] > 0) {
                             costMatrix[i][j] = costMatrix[j][i];
                         } else {

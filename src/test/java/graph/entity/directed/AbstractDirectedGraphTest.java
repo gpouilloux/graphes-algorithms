@@ -1,7 +1,7 @@
 package graph.entity.directed;
 
 import graph.entity.directed.impl.AdjacencyMatrixDirectedGraph;
-import graph.entity.tree.BinaryHeap;
+import graph.util.BinaryHeap;
 import graph.util.Cost;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,11 @@ import org.junit.Test;
 public class AbstractDirectedGraphTest {
 
 
+    /**
+     * Maximum cost to set on an edge
+     */
     public static final int MAX_COST = 10;
+
     private AbstractDirectedGraph directedGraph;
 
     /**
@@ -20,6 +24,7 @@ public class AbstractDirectedGraphTest {
      */
     @Before
     public void initialize() {
+        // FIXME find a proper adjacency matrix
         int[][] adjacencyMatrix = {
                 { 0, 1, 0, 0, },
                 { 0, 0, 1, 0, },

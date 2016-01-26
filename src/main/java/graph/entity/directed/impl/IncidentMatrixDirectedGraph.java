@@ -88,7 +88,7 @@ public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 			if(edges[i] == 1) {
 				for(int j=0; j<this.order; j++) {
 					if(this.incidentMatrix[j][i] == -1) {
-						successors.add(new Integer(j));
+						successors.add(j);
 					}
 				}
 			}

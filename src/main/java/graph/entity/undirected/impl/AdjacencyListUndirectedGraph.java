@@ -5,6 +5,7 @@ import graph.util.ListConverter;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -59,6 +60,44 @@ public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 	public void addEdge(int x, int y) {
 		this.adjacencyList.get(x).getValue().add(y);
 		this.nbEdges++;
+	}
+
+	@Override
+	public AdjacencyListUndirectedGraph inverse() {
+		// private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<>();
+
+
+		List<Integer> inverseVertexes = new ArrayList<>(Collections.nCopies(this.getOrder(), 0));
+
+
+		// Compute the number of successors for each vertexes
+		for(int i=0; i<this.adjacencyList.size(); i++) {
+			Entry<Integer, List<Integer>> vertex = this.adjacencyList.get(i);
+			vertex.getValue().forEach(s -> inverseVertexes.set(s, inverseVertexes.get(s)+1));
+		}
+
+		// Sum the number of successors
+		int succInc = 0; // enable count of vertex's successors
+		for(int i = 0; i< inverseVertexes.size(); i++) {
+			succInc += inverseVertexes.get(i);
+			inverseVertexes.set(i, succInc - inverseVertexes.get(i));
+		}
+
+		// Initialize the inverse graph
+		List<Entry<Integer, List<Integer>>> inverseAdjacencyList = new ArrayList<>();
+		for(Integer vertex : inverseVertexes) {
+			inverseAdjacencyList.add(new AbstractMap.SimpleEntry<>(vertex, new ArrayList<>(vertex)));
+		}
+
+		// Feed the inverse graph
+		for(int i=0; i<this.adjacencyList.size(); i++) {
+			final int vertexId = i;
+			ListConverter.toList(this.getNeighbors(vertexId)).forEach(s -> inverseAdjacencyList.get(s).getValue().add(vertexId));
+		}
+
+        AdjacencyListUndirectedGraph inverseGraph = this;
+		inverseGraph.setAdjacencyList(inverseAdjacencyList);
+		return inverseGraph;
 	}
 
 	@Override
