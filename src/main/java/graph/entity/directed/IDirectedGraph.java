@@ -77,7 +77,7 @@ public interface IDirectedGraph {
     List<Integer> breadthFirstSearch(int baseVertex);
 
     /**
-     * Walk through the graph using DFS method (parcours en longueur)
+     * Walk through the graph using DFS method (parcours en profondeur)
      * Imperative version
      *
      * @param baseVertex the vertex we use to start the walk

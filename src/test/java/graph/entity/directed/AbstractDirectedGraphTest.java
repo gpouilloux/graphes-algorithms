@@ -38,4 +38,11 @@ public class AbstractDirectedGraphTest {
         // TODO test DFS
         this.directedGraph.depthFirstSearch(0);
     }
+
+    @Test
+    public void testPrim() {
+        //int[][] cost = new int[][]{};
+        // TODO test prim algorithm
+        //this.directedGraph.prim(0, cost);
+    }
 }
