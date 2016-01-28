@@ -70,4 +70,12 @@ public interface IGraph {
      * @param baseVertex the base vertex used when starting the walk
      */
     BinaryHeap prim(int baseVertex);
+
+	// TODO javadoc
+	/**
+	 * Floyd algorithm
+	 *
+	 * @return
+	 */
+    int[][] floyd();
 }

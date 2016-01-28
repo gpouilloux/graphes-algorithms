@@ -100,4 +100,9 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
         return null;
     }
 
+	// TODO floyd for directed graphs
+	@Override
+	public int[][] floyd() {
+		return null;
+	}
 }

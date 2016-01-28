@@ -143,4 +143,43 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 		return binaryHeap;
 	}
 
+	@Override
+	public int[][] floyd() {
+		// initialization
+		int n = this.getOrder();
+		int[][] p = new int[n][n];
+		int[][] v = new int[n][n];
+		int[][] cost = this.getGraph();
+
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				if(i == j) {
+					v[i][j] = 0;
+					p[i][j] = i;
+				} else {
+					v[i][j] = Integer.MAX_VALUE;
+					p[i][j] = 0;
+				}
+			}
+			int[] neighbors = this.getNeighbors(i);
+			for(int neighbor : neighbors) {
+				v[i][neighbor] = cost[i][neighbor];
+				p[i][neighbor] = i;
+			}
+		}
+
+		// computing successive matrices
+		for(int k=0; k<n; k++) {
+			for(int i=0; i<n; i++) {
+				for(int j=0; j<n; j++) {
+					if(v[i][k] + v[k][j] < v[i][j]) {
+						v[i][j] = v[i][k] + v[k][j];
+						p[i][j] = p[k][j];
+					}
+				}
+			}
+		}
+
+		return p;
+	}
 }

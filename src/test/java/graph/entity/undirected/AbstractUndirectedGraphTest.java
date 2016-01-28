@@ -45,4 +45,11 @@ public class AbstractUndirectedGraphTest {
 	    BinaryHeap bh = this.undirectedGraph.prim(0);
         bh.display();
     }
+
+	@Test
+	public void testFloyd() {
+		// TODO check the result of the floyd method
+		int[][] p = this.undirectedGraph.floyd();
+		System.out.println();
+	}
 }
