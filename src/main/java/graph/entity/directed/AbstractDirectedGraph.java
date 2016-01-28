@@ -70,7 +70,7 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
 
     // FIXME il faut récupérer toutes les composantes fortements connexes (voir explorerGraph())
     @Override
-    public void depthFirstSearch(int baseVertex) {
+    public List<Integer> depthFirstSearch(int baseVertex) {
         this.initializeTime();
         List<Boolean> mark = new ArrayList<>(Collections.nCopies(this.getOrder(), Boolean.FALSE));
         mark.set(baseVertex, Boolean.TRUE);
@@ -89,6 +89,8 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
             }
             end[vertex] = time++;
         }
+
+        return null;
     }
 
 

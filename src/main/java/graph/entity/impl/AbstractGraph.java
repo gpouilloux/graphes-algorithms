@@ -22,7 +22,7 @@ public abstract class AbstractGraph implements IGraph {
     protected static final int MAX_COST = 10;
 
     @Override
-    public List<IGraph> computeConnectedGraphs() {
+    public List<List<Integer>> computeConnectedGraphs() {
         int baseVertex = (int)(Math.random() * this.getOrder()); // choose base vertex randomly
         this.depthFirstSearch(baseVertex);
 
@@ -36,11 +36,14 @@ public abstract class AbstractGraph implements IGraph {
         // reverse order for array end
         Collections.sort(endMap, byMapValues.reversed());
 
+		// FIXME List<List<Integer>> is not perfect, better use IGraph instead!
+		List<List<Integer>> connectedGraphs = new ArrayList<>();
         for(Map.Entry<Integer, Integer> end : endMap) {
-            inverse.depthFirstSearch(end.getKey());
+	        if(connectedGraphs.stream().noneMatch(g -> g.contains(end.getKey())))
+                connectedGraphs.add(inverse.depthFirstSearch(end.getKey()));
         }
 
-        return null;
+		return connectedGraphs;
     }
 
 

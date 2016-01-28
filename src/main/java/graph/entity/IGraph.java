@@ -53,7 +53,7 @@ public interface IGraph {
      *
      * @param baseVertex the vertex we use to start the walk
      */
-    void depthFirstSearch(int baseVertex);
+    List<Integer> depthFirstSearch(int baseVertex);
 
     /**
      * Compute all connected graphs
@@ -62,7 +62,7 @@ public interface IGraph {
      * 3. Execute exploreGraph() by calling edges decrease order by end[]
      * @return list of connected graphs
      */
-    List<IGraph> computeConnectedGraphs();
+    List<List<Integer>> computeConnectedGraphs();
 
     /**
      * Prim algorithm with BFS method

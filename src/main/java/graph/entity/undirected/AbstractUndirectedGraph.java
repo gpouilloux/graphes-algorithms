@@ -69,11 +69,11 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 		return minDistance;
 	}
 
-	// FIXME il faut récupérer toutes les composantes connexes (voir explorerGraph()) grâce à start et end
 	@Override
-	public void depthFirstSearch(int baseVertex) {
+	public List<Integer> depthFirstSearch(int baseVertex) {
 		this.initializeTime();
 		List<Boolean> mark = new ArrayList<>(Collections.nCopies(this.getOrder(), Boolean.FALSE));
+		List<Integer> vertexesVisited = new ArrayList<>();
 		mark.set(baseVertex, Boolean.TRUE);
 
 		Stack<Integer> toVisit = new Stack<>();
@@ -81,6 +81,7 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 
 		while(!toVisit.isEmpty()) {
 			int vertex = toVisit.pop();
+			vertexesVisited.add(vertex);
 			start[vertex] = time++;
 			for (int neighbor : this.getNeighbors(vertex)) {
 				if (Boolean.FALSE.equals(mark.get(neighbor))) {
@@ -90,6 +91,8 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 			}
 			end[vertex] = time++;
 		}
+
+		return vertexesVisited;
 	}
 
 

@@ -10,12 +10,6 @@ import org.junit.Test;
  */
 public class AbstractDirectedGraphTest {
 
-
-    /**
-     * Maximum cost to set on an edge
-     */
-    public static final int MAX_COST = 10;
-
     private AbstractDirectedGraph directedGraph;
 
     /**
