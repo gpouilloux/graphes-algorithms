@@ -69,7 +69,6 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
 
 
     // FIXME il faut récupérer toutes les composantes fortements connexes (voir explorerGraph())
-    // TODO stocker start & end
     @Override
     public void depthFirstSearch(int baseVertex) {
         this.initializeTime();
@@ -96,47 +95,7 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
     // FIXME does not seem to work, need to focus on undirected graph first
     @Override
     public BinaryHeap prim(int baseVertex) {
-        List<Integer> successors = ListConverter.toList(this.getSuccessors(baseVertex));
-        int predecessors[] = new int[this.getOrder()];
-        int weights[] = new int[this.getOrder()];
-        int cout[][] = this.getGraph();
-
-        // initialization
-        for(int i = 0; i< weights.length; i++) {
-            if(successors.contains(i)) {
-                predecessors[i] = baseVertex;
-                weights[i] = cout[baseVertex][i];
-            } else {
-                predecessors[i] = -1; // -1 is like nil :-)
-                weights[i] = Integer.MAX_VALUE;
-            }
-        }
-        weights[baseVertex] = 0;
-
-        // pour le parcours de tous les sommets sauf celui de base
-        List<Integer> vertexes = new ArrayList<>();
-        for(int i=0; i<this.getOrder(); i++) {
-            if(i != baseVertex) {
-                vertexes.add(i);
-            }
-        }
-
-        BinaryHeap binaryHeap = new BinaryHeap(new int[]{weights[baseVertex]}, new int[]{baseVertex});
-
-
-        while(!vertexes.isEmpty()) {
-            int vertex = this.peekMinElement(weights, vertexes); // get vertex with lowest weight
-            binaryHeap.insert(weights[vertex], vertex); // insert in the binary heap
-            int succ[] = this.getSuccessors(vertex);
-            for(int i=0; i<succ.length; i++) {
-                if(vertexes.contains(i) && weights[i] > cout[vertex][i]) {
-                    weights[i] = cout[vertex][i];
-                    predecessors[i] = vertex;
-                }
-            }
-        }
-
-        return binaryHeap;
+        return null;
     }
 
 }

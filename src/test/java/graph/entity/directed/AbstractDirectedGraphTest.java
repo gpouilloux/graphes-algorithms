@@ -2,7 +2,6 @@ package graph.entity.directed;
 
 import graph.entity.directed.impl.AdjacencyMatrixDirectedGraph;
 import graph.util.BinaryHeap;
-import graph.util.Cost;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -49,9 +48,7 @@ public class AbstractDirectedGraphTest {
 
     @Test
     public void testPrim() {
-        int[][] cost = Cost.getCostMatrix(this.directedGraph, MAX_COST);
         // TODO test prim algorithm
         BinaryHeap bh = this.directedGraph.prim(0);
-        bh.display();
     }
 }
