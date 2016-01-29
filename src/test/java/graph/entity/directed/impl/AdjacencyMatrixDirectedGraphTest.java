@@ -8,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
+import static graph.util.Constantes.O;
 
 /**
  * Test class for adjacency matrix representing directed graphs
@@ -19,10 +20,10 @@ public class AdjacencyMatrixDirectedGraphTest {
     @Before
     public void initialize() {
         int[][] adjacencyMatrix = {
-                { 0, 1, 1, 0, },
-                { 0, 0, 0, 0, },
-                { 0, 1, 0, 0, },
-                { 0, 0, 0, 0 }
+                { O, 1, 1, O, },
+                { O, O, O, O, },
+                { O, 1, O, O, },
+                { O, O, O, O }
         };
 
         this.adjacencyMatrix = new AdjacencyMatrixDirectedGraph(4, 3, adjacencyMatrix);
@@ -75,7 +76,7 @@ public class AdjacencyMatrixDirectedGraphTest {
 
         assertThat(this.adjacencyMatrix.isEdge(x, y), equalTo(Boolean.FALSE));
 
-        this.adjacencyMatrix.addArc(x, y);
+        this.adjacencyMatrix.addArc(x, y, 5);
 
         assertThat(this.adjacencyMatrix.isEdge(x, y), equalTo(Boolean.TRUE));
     }
@@ -95,10 +96,10 @@ public class AdjacencyMatrixDirectedGraphTest {
         AdjacencyMatrixDirectedGraph result = this.adjacencyMatrix.inverse();
 
         int[][] adjacencyMatrix = {
-                { 0, 0, 0, 0, },
-                { 1, 0, 1, 0, },
-                { 1, 0, 0, 0, },
-                { 0, 0, 0, 0 }
+                { O, O, O, O, },
+                { 1, O, 1, O, },
+                { 1, O, O, O, },
+                { O, O, O, O }
         };
 
         AdjacencyMatrixDirectedGraph expected = new AdjacencyMatrixDirectedGraph(4, 3, adjacencyMatrix);

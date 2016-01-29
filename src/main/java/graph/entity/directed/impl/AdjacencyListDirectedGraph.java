@@ -14,6 +14,7 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 	private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<>();
 	private AdjacencyMatrixDirectedGraph adjacencyMatrix;
 
+
 	public AdjacencyListDirectedGraph(AdjacencyMatrixDirectedGraph adjacencyMatrix) {
 		this.adjacencyMatrix = adjacencyMatrix; // still useful to backup the adjacency matrix
 		this.order = adjacencyMatrix.getOrder();
@@ -27,6 +28,13 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 			adjacencyList.add(new AbstractMap.SimpleEntry<>(succInc, ListConverter.toList(successors)));
 			succInc+=successors.length;
 		}
+	}
+
+	public AdjacencyListDirectedGraph(AdjacencyListDirectedGraph adjacencyList) {
+		this.adjacencyMatrix = adjacencyList.getAdjacencyMatrix();
+		this.order = adjacencyList.getOrder();
+		this.nbEdges = adjacencyList.getNbEdges();
+		this.adjacencyList = adjacencyList.getAdjacencyList();
 	}
 
 	@Override
@@ -71,7 +79,7 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 	}
 
 	@Override
-	public void addArc(int x, int y) {
+	public void addArc(int x, int y, int cost) {
 		this.adjacencyList.get(x).getValue().add(y);
 		this.nbEdges++;
 	}
@@ -115,12 +123,10 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 		// Feed the inverse graph
 		for(int i=0; i<this.adjacencyList.size(); i++) {
 			final int vertexId = i;
-			ListConverter.toList(this.getSuccessors(vertexId)).forEach(s -> {
-				inverseAdjacencyList.get(s).getValue().add(vertexId);
-			});
+			ListConverter.toList(this.getSuccessors(vertexId)).forEach(s -> inverseAdjacencyList.get(s).getValue().add(vertexId));
 		}
 
-		AdjacencyListDirectedGraph inverseGraph = this;
+		AdjacencyListDirectedGraph inverseGraph = new AdjacencyListDirectedGraph(this);
 		inverseGraph.setAdjacencyList(inverseAdjacencyList);
 		return inverseGraph;
 	}
@@ -131,6 +137,14 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 
 	public void setAdjacencyList(List<Entry<Integer, List<Integer>>> adjacencyList) {
 		this.adjacencyList = adjacencyList;
+	}
+
+	public AdjacencyMatrixDirectedGraph getAdjacencyMatrix() {
+		return adjacencyMatrix;
+	}
+
+	public void setAdjacencyMatrix(AdjacencyMatrixDirectedGraph adjacencyMatrix) {
+		this.adjacencyMatrix = adjacencyMatrix;
 	}
 
 }

@@ -34,6 +34,7 @@ public interface IDirectedGraph extends IGraph {
      * Add an arc to the directed graph
      * @param x the source of the arc
      * @param y the target of the arc
+     * @param cost the cost on the arc
      */
-	void addArc(int x, int y);
+	void addArc(int x, int y, int cost);
 }

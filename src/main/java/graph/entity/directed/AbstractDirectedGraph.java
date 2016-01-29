@@ -2,7 +2,6 @@ package graph.entity.directed;
 
 import graph.entity.impl.AbstractGraph;
 import graph.util.BinaryHeap;
-import graph.util.ListConverter;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -16,9 +15,16 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
      * @return the random directed graph generated
      */
     public static int[][] getRandomDirectedGraph(int order, int nbEdges) {
-        int[][] adjacencyMatrix = new int[order][order];
 
-        // Récupération de toutes les arêtes
+        // Initialize the adjacency matrix with no edges
+        int[][] adjacencyMatrix = new int[order][order];
+        for(int i=0; i<order; i++) {
+            for(int j=0; j<order; j++) {
+                adjacencyMatrix[i][j] = O;
+            }
+        }
+
+	    // Grab all possible edges
         List<Entry<Integer, Integer>> edges = new ArrayList<>();
         for(int i = 0; i< order; i++) {
             for(int j = 0; j< order; j++) {
@@ -27,7 +33,7 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
             }
         }
 
-        // Epurage pour sélection de seulement nbAretes arêtes
+	    // Randomly choose few edges
         List<Entry<Integer, Integer>> selectedEdges = new ArrayList<>();
         int nbEdgesPossible = edges.size();
         for(int i=0; i<nbEdges; i++) {
@@ -35,9 +41,10 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
             selectedEdges.add(edges.remove(edgeToRemove));
         }
 
-        // Mise à jour de la matrice d'adjacence
+	    // Update the adjacency matrix
         for(Map.Entry<Integer, Integer> edge : selectedEdges) {
-            adjacencyMatrix[edge.getKey()][edge.getValue()] = 1;
+	        int cost = (int) Math.round(Math.random() * MAX_COST) + 1;
+	        adjacencyMatrix[edge.getKey()][edge.getValue()] = cost;
         }
 
         return adjacencyMatrix;

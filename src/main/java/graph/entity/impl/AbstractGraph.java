@@ -18,6 +18,8 @@ public abstract class AbstractGraph implements IGraph {
     protected int[] end;
     protected int time;
 
+    protected static final int O = Integer.MAX_VALUE;
+
 	// Maximum cost to put on an edge
     protected static final int MAX_COST = 10;
 

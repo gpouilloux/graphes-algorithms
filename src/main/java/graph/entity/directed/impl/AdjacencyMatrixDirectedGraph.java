@@ -32,7 +32,7 @@ public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 		// grabbing the successors of the vertex x
 		List<Integer> successors = new ArrayList<>();
 		for(int i=0; i<this.order; i++) {
-			if(this.adjacencyMatrix[x][i] == 1) {
+			if(this.adjacencyMatrix[x][i] != O) {
 				successors.add(i);
 			}
 		}
@@ -46,7 +46,7 @@ public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 		// grabbing the predecessors of the vertex x
 		List<Integer> predecessors = new ArrayList<>();
 		for(int i=0; i<this.order; i++) {
-			if(this.adjacencyMatrix[i][x] == 1) {
+			if(this.adjacencyMatrix[i][x] != O) {
 				predecessors.add(i);
 			}
 		}
@@ -57,7 +57,7 @@ public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public boolean isEdge(int x, int y) {
-		return this.adjacencyMatrix[x][y] == 1;
+		return this.adjacencyMatrix[x][y] != O;
 	}
 
 	@Override
@@ -77,13 +77,13 @@ public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public void removeArc(int x, int y) {
-		this.adjacencyMatrix[x][y] = 0;
+		this.adjacencyMatrix[x][y] = O;
 		this.nbEdges--;
 	}
 
 	@Override
-	public void addArc(int x, int y) {
-		this.adjacencyMatrix[x][y] = 1;
+	public void addArc(int x, int y, int cost) {
+		this.adjacencyMatrix[x][y] = cost;
 		this.nbEdges++;		
 	}
 

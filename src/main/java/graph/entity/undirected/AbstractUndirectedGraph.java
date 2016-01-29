@@ -21,7 +21,7 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 		int[][] adjacencyMatrix = new int[order][order];
 		for(int i=0; i<order; i++) {
 			for(int j=0; j<order; j++) {
-				adjacencyMatrix[i][j] = Integer.MAX_VALUE;
+				adjacencyMatrix[i][j] = O;
 			}
 		}
 
@@ -116,7 +116,7 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 				weights[i] = cout[baseVertex][i];
 			} else {
 				predecessors[i] = -1; // -1 is like nil :-)
-				weights[i] = Integer.MAX_VALUE;
+				weights[i] = O;
 			}
 		}
 		weights[baseVertex] = 0;
@@ -163,7 +163,7 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 					v[i][j] = 0;
 					p[i][j] = i;
 				} else {
-					v[i][j] = Integer.MAX_VALUE;
+					v[i][j] = O;
 					p[i][j] = 0;
 				}
 			}
