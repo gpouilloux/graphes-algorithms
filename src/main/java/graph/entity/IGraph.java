@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Interface for the manipulation of a graph
+ *
+ * @author Guillaume Pouilloux
  */
 public interface IGraph {
     /**

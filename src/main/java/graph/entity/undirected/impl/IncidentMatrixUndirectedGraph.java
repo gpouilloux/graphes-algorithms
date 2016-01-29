@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Map.Entry;
 
 /**
- * Représentation d'un graphe avec une matrice d'incidence
+ * Incident matrix representing undirect graphs
  *
- * @author gpouillo
+ * @author Guillaume Pouilloux
  *
  */
 public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {

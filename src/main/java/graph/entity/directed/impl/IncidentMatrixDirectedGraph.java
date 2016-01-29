@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+/**
+ * Incident matrix representing directed graph
+ *
+ * @author Guillaume Pouilloux
+ */
 public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 
     private int[][] incidentMatrix;

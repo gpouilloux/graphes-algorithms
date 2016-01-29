@@ -5,6 +5,8 @@ import java.util.Arrays;
 /**
  * BinaryHeap ; compact representation
  * Each vertex has an int value and a weight
+ *
+ * @author Guillaume Pouilloux
  */
 public class BinaryHeap {
 

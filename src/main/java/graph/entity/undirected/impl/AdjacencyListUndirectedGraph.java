@@ -9,6 +9,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
+/**
+ * Adjacency list representing undirected graphs
+ *
+ * @author Guillaume Pouilloux
+ */
 public class AdjacencyListUndirectedGraph extends AbstractUndirectedGraph {
 
 	private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<>();

@@ -9,6 +9,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 
+/**
+ * Adjacency list representing direct graph
+ *
+ * @author Guillaume Pouilloux
+ */
 public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 
 	private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<>();
@@ -95,8 +100,6 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 
 	@Override
 	public AdjacencyListDirectedGraph inverse() {
-		// private List<Entry<Integer, List<Integer>>> adjacencyList = new ArrayList<>();
-
 
 		List<Integer> inverseVertexes = new ArrayList<>(Collections.nCopies(this.getOrder(), 0));
 

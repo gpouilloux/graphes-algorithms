@@ -6,6 +6,11 @@ import graph.util.ListConverter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adjacency Matrix representing directed graph
+ *
+ * @author Guillaume Pouilloux
+ */
 public class AdjacencyMatrixDirectedGraph extends AbstractDirectedGraph {
 
     private int[][] adjacencyMatrix;

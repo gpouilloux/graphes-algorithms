@@ -6,6 +6,11 @@ import graph.util.ListConverter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adjacency matrix representing undirected graph
+ *
+ * @author Guillaume Pouilloux
+ */
 public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
 	private int[][] adjacencyMatrix;

@@ -7,6 +7,11 @@ import graph.util.ListConverter;
 import java.util.*;
 import java.util.Map.Entry;
 
+/**
+ * Abstract class representing undirected graph
+ *
+ * @author Guillaume Pouilloux
+ */
 public abstract class AbstractUndirectedGraph extends AbstractGraph implements IUndirectedGraph {
 
 	/**

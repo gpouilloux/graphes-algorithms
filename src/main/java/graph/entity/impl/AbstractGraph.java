@@ -6,6 +6,8 @@ import java.util.*;
 
 /**
  * Abstract class implementing common methods for directed and undirected graphs
+ *
+ * @author Guillaume Pouilloux
  */
 public abstract class AbstractGraph implements IGraph {
 

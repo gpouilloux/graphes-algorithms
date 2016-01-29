@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * Specific converter which enable to transform an array of primitive ints into a list of Integer and vice-versa...
- * @author gpouillo
+ *
+ * @author Guillaume Pouilloux
  *
  */
 public class ListConverter {

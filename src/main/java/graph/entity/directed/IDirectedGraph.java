@@ -4,7 +4,8 @@ import graph.entity.IGraph;
 
 /**
  * Interface for the manipulation of directed graph
- * @author gpouillo
+ *
+ * @author Guillaume Pouilloux
  *
  */
 public interface IDirectedGraph extends IGraph {

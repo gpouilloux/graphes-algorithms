@@ -4,6 +4,7 @@ import graph.entity.directed.impl.AdjacencyMatrixDirectedGraph;
 import graph.util.BinaryHeap;
 import org.junit.Before;
 import org.junit.Test;
+import static graph.util.Constantes.O;
 
 /**
  * Test of {AbstractDirectedGraph}
@@ -19,10 +20,10 @@ public class AbstractDirectedGraphTest {
     public void initialize() {
         // FIXME find a proper adjacency matrix
         int[][] adjacencyMatrix = {
-                { 0, 1, 0, 0, },
-                { 0, 0, 1, 0, },
-                { 0, 0, 0, 1, },
-                { 0, 0, 0, 0 }
+                { O, 1, O, O, },
+                { O, O, 1, O, },
+                { O, O, O, 1, },
+                { O, O, O, O }
         };
 
         this.directedGraph = new AdjacencyMatrixDirectedGraph(4, 3, adjacencyMatrix);

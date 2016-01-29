@@ -4,7 +4,8 @@ import graph.entity.IGraph;
 
 /**
  * Interface for the manipulation of undirected graphs
- * @author gpouillo
+ *
+ * @author Guillaume Pouilloux
  *
  */
 public interface IUndirectedGraph extends IGraph {

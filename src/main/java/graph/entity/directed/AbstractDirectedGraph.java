@@ -6,6 +6,9 @@ import graph.util.BinaryHeap;
 import java.util.*;
 import java.util.Map.Entry;
 
+/**
+ * Abstract class representing directed graph
+ */
 public abstract class AbstractDirectedGraph extends AbstractGraph implements IDirectedGraph {
 
     /**
