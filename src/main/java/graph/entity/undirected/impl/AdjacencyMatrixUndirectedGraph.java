@@ -44,7 +44,7 @@ public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
 	@Override
 	public boolean isEdge(int x, int y) {
-		return this.adjacencyMatrix[x][y] > 0;
+		return this.adjacencyMatrix[x][y] != Integer.MAX_VALUE;
 	}
 
 	@Override
@@ -65,8 +65,8 @@ public class AdjacencyMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
 	@Override
 	public void removeEdge(int x, int y) {
-		this.adjacencyMatrix[x][y] = 0;
-		this.adjacencyMatrix[y][x] = 0;
+		this.adjacencyMatrix[x][y] = Integer.MAX_VALUE;
+		this.adjacencyMatrix[y][x] = Integer.MAX_VALUE;
 		this.nbEdges--;
 	}
 

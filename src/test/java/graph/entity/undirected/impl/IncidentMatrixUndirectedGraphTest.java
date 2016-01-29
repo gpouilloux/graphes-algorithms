@@ -8,6 +8,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
+import static graph.util.Constantes.O;
+
 
 /**
  * Test class for incident matrix representing undirected graphs
@@ -19,10 +21,10 @@ public class IncidentMatrixUndirectedGraphTest {
     @Before
     public void initialize() {
         int[][] adjacencyMatrix = {
-                { 0, 0, 2, 1, },
-                { 0, 0, 0, 3, },
-                { 2, 0, 0, 0, },
-                { 1, 3, 0, 0 }
+                { O, O, 2, 1, },
+                { O, O, O, 3, },
+                { 2, O, O, O, },
+                { 1, 3, O, O }
         };
 
         this.incidentMatrix = new IncidentMatrixUndirectedGraph(new AdjacencyListUndirectedGraph(

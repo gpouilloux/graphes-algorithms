@@ -36,9 +36,9 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         // convert the adjacency matrix into an incident matrix
         for(int i=0; i<order; i++) {
             for(int j=i+1; j<order; j++) {
-                if(this.adjacencyMatrix[i][j] == 1) {
-                    this.incidentMatrix[i][nbEdges - remainingEdges] = 1;
-                    this.incidentMatrix[j][nbEdges - remainingEdges] = 1;
+                if(this.adjacencyMatrix[i][j] != Integer.MAX_VALUE) {
+                    this.incidentMatrix[i][nbEdges - remainingEdges] = this.adjacencyMatrix[i][j];
+                    this.incidentMatrix[j][nbEdges - remainingEdges] = this.adjacencyMatrix[i][j];
                     remainingEdges--;
                 }
             }
@@ -56,7 +56,13 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         this.nbEdges = adjacencyList.getNbEdges();
 	    this.adjacencyMatrix = adjacencyList.getGraph();
 
+	    // Initialize the incident matrix with no edjes
         int[][] incidentMatrix = new int[this.order][this.nbEdges];
+        for(int i=0; i<this.order; i++) {
+	        for(int j=0; j<this.nbEdges; j++) {
+		        incidentMatrix[i][j] = Integer.MAX_VALUE;
+	        }
+        }
 
         int vertexNumber = 0;
         int remainingEdges = nbEdges;
@@ -95,7 +101,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
         int[] edges = this.incidentMatrix[x];
         for(int i=0; i<edges.length; i++) {
-            if(edges[i] > 0) {
+            if(edges[i] != Integer.MAX_VALUE) {
                 for(int j=0; j<this.order; j++) {
                     if(this.incidentMatrix[j][i] == edges[i] && j != x) {
                         neighbors.add(j);
@@ -115,7 +121,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         int i=0;
 
         while(!isEdge && i < edgesOfX.length) {
-            if(edgesOfX[i] > 0 && edgesOfY[i] > 0 && edgesOfX[i] == edgesOfY[i]) {
+            if(edgesOfX[i] != Integer.MAX_VALUE && edgesOfX[i] == edgesOfY[i]) {
                 isEdge = true;
             }
             i++;
@@ -148,7 +154,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         int columnEdge=0; // to keep the column id to remove
 
         while(!edgeFounded && columnEdge < edgesOfX.length) {
-            if(edgesOfX[columnEdge] > 0 && edgesOfY[columnEdge] > 0 && edgesOfX[columnEdge] == edgesOfY[columnEdge]) {
+            if(edgesOfX[columnEdge] != Integer.MAX_VALUE && edgesOfX[columnEdge] == edgesOfY[columnEdge]) {
                 edgeFounded = true;
             } else {
                 columnEdge++;
@@ -207,10 +213,10 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
         for(int i=0; i<this.getOrder(); i++) {
             for(int j=0; j<this.getNbEdges(); j++) {
-                if(this.incidentMatrix[i][j] != 0) {
+                if(this.incidentMatrix[i][j] != Integer.MAX_VALUE) {
                     inverseIncidentMatrix[i][j] = -this.incidentMatrix[i][j];
                 } else {
-                    inverseIncidentMatrix[i][j] = 0;
+                    inverseIncidentMatrix[i][j] = Integer.MAX_VALUE;
                 }
             }
         }

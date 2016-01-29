@@ -4,6 +4,8 @@ import graph.entity.undirected.impl.AdjacencyMatrixUndirectedGraph;
 import graph.util.BinaryHeap;
 import org.junit.Before;
 import org.junit.Test;
+import static graph.util.Constantes.O;
+
 
 /**
  * Test of {AbstractUndirectedGraph}
@@ -11,10 +13,10 @@ import org.junit.Test;
 public class AbstractUndirectedGraphTest {
 
 	private int[][] adjacencyMatrix = {
-			{ 0, 2, 2, 3, },
-			{ 2, 0, 0, 2, },
-			{ 2, 0, 0, 1, },
-			{ 3, 2, 1, 0 }
+			{ O, 2, 2, 3, },
+			{ 2, O, O, 2, },
+			{ 2, O, O, 1, },
+			{ 3, 2, 1, O }
 	};
 
     private AbstractUndirectedGraph undirectedGraph;

@@ -17,9 +17,15 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 	 */
 	public static int[][] getRandomUndirectedGraph(int order, int nbEdges) {
 
+		// Initialize the adjacency matrix with no edges
 		int[][] adjacencyMatrix = new int[order][order];
+		for(int i=0; i<order; i++) {
+			for(int j=0; j<order; j++) {
+				adjacencyMatrix[i][j] = Integer.MAX_VALUE;
+			}
+		}
 
-		// Récupération de toutes les arêtes
+		// Grab all possible edges
 		List<Entry<Integer, Integer>> edges = new ArrayList<>();
 		for(int i = 0; i< order; i++) {
 			for(int j = i+1; j< order; j++) {
@@ -27,7 +33,7 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 			}
 		}
 
-		// Epurage pour sélection de seulement nbAretes arêtes
+		// Randomly choose few edges
 		List<Entry<Integer, Integer>> selectedEdges = new ArrayList<>();
 		int nbEdgesPossible = edges.size();
 		for(int i=0; i<nbEdges; i++) {
@@ -35,7 +41,7 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 			selectedEdges.add(edges.remove(edgeToRemove));
 		}
 
-		// Mise à jour de la matrice d'adjacence
+		// Update the adjacency matrix
 		for(Map.Entry<Integer, Integer> edge : selectedEdges) {
 			int cost = (int) Math.round(Math.random() * MAX_COST) + 1;
 			adjacencyMatrix[edge.getKey()][edge.getValue()] = cost;

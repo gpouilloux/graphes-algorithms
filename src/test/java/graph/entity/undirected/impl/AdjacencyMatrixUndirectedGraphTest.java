@@ -8,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.IsNull.nullValue;
+import static graph.util.Constantes.O;
 
 /**
  * Test class for adjacency matrix representing undirected graphs
@@ -19,10 +20,10 @@ public class AdjacencyMatrixUndirectedGraphTest {
     @Before
     public void initialize() {
         int[][] adjacencyMatrix = {
-                { 0, 0, 3, 1, },
-                { 0, 0, 0, 2, },
-                { 3, 0, 0, 0, },
-                { 1, 2, 0, 0 }
+                {O, O, 3, 1, },
+                {O, O, O, 2, },
+                { 3, O, O, O, },
+                { 1, 2, O, O}
         };
 
         this.adjacencyMatrix = new AdjacencyMatrixUndirectedGraph(4, 3, adjacencyMatrix);
