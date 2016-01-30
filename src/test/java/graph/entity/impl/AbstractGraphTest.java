@@ -75,15 +75,16 @@ public class AbstractGraphTest {
 				{ O, 3, O  }
 		};
 
-		// TODO check the result of the floyd method
-		this.abstractGraph = new AdjacencyMatrixUndirectedGraph(3, 2, adjacencyMatrixFloyd);
-		int[][] p = this.abstractGraph.floyd();
-		for (int[] row : p) {
-			for (int cell : row) {
-				System.out.print(cell + " ");
-			}
-			System.out.println("");
-		}
+		this.abstractGraph = new AdjacencyMatrixUndirectedGraph(3, 4, adjacencyMatrixFloyd);
+		int[][] v = this.abstractGraph.floyd();
+
+		int[][] expectedDistances = {
+				{ 0, 2, 5, },
+				{ 2, 0, 3, },
+				{ 5, 3, 0  }
+		};
+
+		assertThat(v, equalTo(expectedDistances));
 	}
 
 

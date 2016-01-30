@@ -85,7 +85,7 @@ public interface IGraph {
 	/**
 	 * Floyd algorithm and computation of transitive closure
 	 *
-	 * @return the matrix of predecessors
+	 * @return the matrix of minimum distances between each vertex
 	 */
     int[][] floyd();
 }
