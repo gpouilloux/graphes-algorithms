@@ -14,7 +14,7 @@ public abstract class AbstractDirectedGraph extends AbstractGraph implements IDi
 
     /**
      * Generate a random directed graph
-     * @param order the number of vertexes
+     * @param order the number of vertices
      * @param nbEdges the number of edges
      * @return the random directed graph generated
      */

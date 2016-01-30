@@ -32,7 +32,7 @@ public abstract class AbstractGraph implements IGraph {
 		List<Boolean> mark = new ArrayList<>(Collections.nCopies(this.getOrder(), Boolean.FALSE));
 		mark.set(baseVertex, Boolean.TRUE);
 
-		List<Integer> visitedVertexes = new ArrayList<>();
+		List<Integer> visitedVertices = new ArrayList<>();
 		List<Integer> minDistance = new ArrayList<>(Collections.nCopies(this.getOrder(), 0));
 
 		Queue<Integer> toVisit = new LinkedList<>();
@@ -40,7 +40,7 @@ public abstract class AbstractGraph implements IGraph {
 
 		while(!toVisit.isEmpty()) {
 			int vertex = toVisit.poll();
-			visitedVertexes.add(vertex);
+			visitedVertices.add(vertex);
 			for(int neighbor : this.getNeighbors(vertex)) {
 				if(Boolean.FALSE.equals(mark.get(neighbor))) {
 					mark.set(neighbor, Boolean.TRUE);
@@ -50,14 +50,14 @@ public abstract class AbstractGraph implements IGraph {
 			}
 		}
 
-		return visitedVertexes;
+		return visitedVertices;
 	}
 
 	@Override
 	public List<Integer> depthFirstSearch(int baseVertex) {
 		this.initializeTime();
 		List<Boolean> mark = new ArrayList<>(Collections.nCopies(this.getOrder(), Boolean.FALSE));
-		List<Integer> visitedVertexes = new ArrayList<>();
+		List<Integer> visitedVertices = new ArrayList<>();
 		mark.set(baseVertex, Boolean.TRUE);
 
 		Stack<Integer> toVisit = new Stack<>();
@@ -65,7 +65,7 @@ public abstract class AbstractGraph implements IGraph {
 
 		while(!toVisit.isEmpty()) {
 			int vertex = toVisit.pop();
-			visitedVertexes.add(vertex);
+			visitedVertices.add(vertex);
 			start[vertex] = time++;
 			for (int neighbor : this.getNeighbors(vertex)) {
 				if (Boolean.FALSE.equals(mark.get(neighbor))) {
@@ -76,7 +76,7 @@ public abstract class AbstractGraph implements IGraph {
 			end[vertex] = time++;
 		}
 
-		return visitedVertexes;
+		return visitedVertices;
 	}
 
 	@Override
@@ -98,25 +98,25 @@ public abstract class AbstractGraph implements IGraph {
 		}
 		weights[baseVertex] = 0;
 
-		// get ready to walk through all the vertexes except the base one
-		List<Integer> vertexes = new ArrayList<>();
+		// get ready to walk through all the vertices except the base one
+		List<Integer> vertices = new ArrayList<>();
 		for(int i=0; i<this.getOrder(); i++) {
 			if(i != baseVertex) {
-				vertexes.add(i);
+				vertices.add(i);
 			}
 		}
 
 		// initialize the binary heap with the base vertex
 		BinaryHeap binaryHeap = new BinaryHeap(new int[]{weights[baseVertex]}, new int[]{baseVertex});
 
-		// keep iterating while we have vertexes to discover
-		while(!vertexes.isEmpty()) {
-			int vertex = this.peekMinElement(weights, vertexes); // get vertex with lowest weight
+		// keep iterating while we have vertices to discover
+		while(!vertices.isEmpty()) {
+			int vertex = this.peekMinElement(weights, vertices); // get vertex with lowest weight
 			binaryHeap.insert(weights[vertex], vertex); // insert in the binary heap
 			int succs[] = this.getNeighbors(vertex);
 			for(int i=0; i<succs.length; i++) {
 				int succ = succs[i];
-				if(vertexes.contains(succ) && weights[succ] > cout[vertex][succ]) {
+				if(vertices.contains(succ) && weights[succ] > cout[vertex][succ]) {
 					weights[succ] = cout[vertex][succ];
 					predecessors[succ] = vertex;
 				}
@@ -207,21 +207,21 @@ public abstract class AbstractGraph implements IGraph {
      * Finds the minimum element in a weightArray of Integer and removes it
      *
      * @param weightArray the weightArray of Integer
-     * @param vertexes the vertexes
+     * @param vertices the vertices
      * @return the minimum element in the weightArray
      */
-    protected Integer peekMinElement(int[] weightArray, List<Integer> vertexes) {
+    protected Integer peekMinElement(int[] weightArray, List<Integer> vertices) {
         Integer min = weightArray[0];
-        Integer minElt = vertexes.get(0);
-        for(int i=1; i<vertexes.size(); i++) {
-            Integer elt = vertexes.get(i);
+        Integer minElt = vertices.get(0);
+        for(int i=1; i<vertices.size(); i++) {
+            Integer elt = vertices.get(i);
             if(weightArray[i] < min) {
                 min = weightArray[i];
                 minElt = elt;
             }
         }
 
-        vertexes.remove(minElt);
+        vertices.remove(minElt);
         return minElt;
     }
 

@@ -39,20 +39,20 @@ public class AbstractGraphTest {
 
 	@Test
 	public void testBFS() {
-		List<Integer> visitedVertexes = this.abstractGraph.breadthFirstSearch(0);
+		List<Integer> visitedVertices = this.abstractGraph.breadthFirstSearch(0);
 
-		List<Integer> expectedVisitedVertexes = Arrays.asList(0, 1, 2, 3);
+		List<Integer> expectedVisitedVertices = Arrays.asList(0, 1, 2, 3);
 
-		assertThat(visitedVertexes, equalTo(expectedVisitedVertexes));
+		assertThat(visitedVertices, equalTo(expectedVisitedVertices));
 	}
 
 	@Test
 	public void testDFS() {
-		List<Integer> visitedVertexes = this.abstractGraph.depthFirstSearch(0);
+		List<Integer> visitedVertices = this.abstractGraph.depthFirstSearch(0);
 
-		List<Integer> expectedVisitedVertexes = Arrays.asList(0, 2, 3, 1);
+		List<Integer> expectedVisitedVertices = Arrays.asList(0, 2, 3, 1);
 
-		assertThat(visitedVertexes, equalTo(expectedVisitedVertexes));
+		assertThat(visitedVertices, equalTo(expectedVisitedVertices));
 	}
 
 

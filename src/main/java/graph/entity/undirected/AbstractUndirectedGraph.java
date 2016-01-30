@@ -16,7 +16,7 @@ public abstract class AbstractUndirectedGraph extends AbstractGraph implements I
 
 	/**
 	 * Generate a random undirected graph
-	 * @param order the number of vertexes
+	 * @param order the number of vertices
 	 * @param nbEdges the number of edges
 	 * @return the random undirected graph generated
 	 */

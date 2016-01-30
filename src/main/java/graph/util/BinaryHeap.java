@@ -37,7 +37,7 @@ public class BinaryHeap {
             int leafId = i;
             while(!treeIsOrdered) {
                 if(this.weights[leafId] < this.weights[(leafId-1)/2]) {
-                    this.swapVertexes(leafId, (leafId-1)/ 2);
+                    this.swapVertices(leafId, (leafId-1)/ 2);
                     leafId = (leafId - 1) / 2;
                 } else {
                     treeIsOrdered = Boolean.TRUE;
@@ -51,7 +51,7 @@ public class BinaryHeap {
      * @param i one vertex
      * @param j another vertex
      */
-    private void swapVertexes(int i, int j) {
+    private void swapVertices(int i, int j) {
         int tmp = this.weights[i];
         int tmpIndex = this.indexes[i];
         this.weights[i] = this.weights[j];
@@ -83,7 +83,7 @@ public class BinaryHeap {
         boolean treeIsOrdered = weights[leafId] >= weights[(leafId-1)/2];
         while(!treeIsOrdered) {
             if(weights[leafId] < this.weights[(leafId-1)/2]) {
-                this.swapVertexes(leafId, (leafId-1)/ 2);
+                this.swapVertices(leafId, (leafId-1)/ 2);
                 leafId = (leafId-1)/2;
             } else {
                 treeIsOrdered = Boolean.TRUE;
@@ -96,7 +96,7 @@ public class BinaryHeap {
      */
     public void removeSmallestElement() {
         // 1. Permute root with last leaf
-        this.swapVertexes(0, this.weights.length-1);
+        this.swapVertices(0, this.weights.length-1);
 
         // 2. Copy weights array without last element
         int[] newWeights = new int[this.weights.length-1];
@@ -112,10 +112,10 @@ public class BinaryHeap {
         while(!treeIsOrdered) {
             if(this.hasChildren(leafId)) {
                 if (this.weights[leafId] > this.weights[2 * leafId + 1]) {
-                    this.swapVertexes(leafId, 2 * leafId + 1);
+                    this.swapVertices(leafId, 2 * leafId + 1);
                     leafId = 2 * leafId + 1;
                 } else if (this.weights[leafId] > this.weights[2 * leafId + 2]) {
-                    this.swapVertexes(leafId, 2 * leafId + 2);
+                    this.swapVertices(leafId, 2 * leafId + 2);
                     leafId = 2 * leafId + 2;
                 } else {
                     treeIsOrdered = Boolean.TRUE;

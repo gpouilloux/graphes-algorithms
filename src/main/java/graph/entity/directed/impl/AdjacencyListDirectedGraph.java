@@ -101,25 +101,25 @@ public class AdjacencyListDirectedGraph extends AbstractDirectedGraph {
 	@Override
 	public AdjacencyListDirectedGraph inverse() {
 
-		List<Integer> inverseVertexes = new ArrayList<>(Collections.nCopies(this.getOrder(), 0));
+		List<Integer> inverseVertices = new ArrayList<>(Collections.nCopies(this.getOrder(), 0));
 
 
-		// Compute the number of successors for each vertexes
+		// Compute the number of successors for each vertices
 		for(int i=0; i<this.adjacencyList.size(); i++) {
 			Entry<Integer, List<Integer>> vertex = this.adjacencyList.get(i);
-			vertex.getValue().forEach(s -> inverseVertexes.set(s, inverseVertexes.get(s)+1));
+			vertex.getValue().forEach(s -> inverseVertices.set(s, inverseVertices.get(s)+1));
 		}
 
 		// Sum the number of successors
 		int succInc = 0; // enable count of vertex's successors
-		for(int i = 0; i< inverseVertexes.size(); i++) {
-			succInc += inverseVertexes.get(i);
-			inverseVertexes.set(i, succInc - inverseVertexes.get(i));
+		for(int i = 0; i< inverseVertices.size(); i++) {
+			succInc += inverseVertices.get(i);
+			inverseVertices.set(i, succInc - inverseVertices.get(i));
 		}
 
 		// Initialize the inverse graph
 		List<Entry<Integer, List<Integer>>> inverseAdjacencyList = new ArrayList<>();
-		for(Integer vertex : inverseVertexes) {
+		for(Integer vertex : inverseVertices) {
 			inverseAdjacencyList.add(new AbstractMap.SimpleEntry<>(vertex, new ArrayList<>(vertex)));
 		}
 

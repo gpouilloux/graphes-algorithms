@@ -53,7 +53,7 @@ public interface IGraph {
      * Walk through the graph using BFS method (parcours en largeur)
      *
      * @param baseVertex the vertex we use to start the walk
-     * @return the list of visited vertexes following the order
+     * @return the list of visited vertices following the order
      */
     List<Integer> breadthFirstSearch(int baseVertex);
 
@@ -62,7 +62,7 @@ public interface IGraph {
      * Imperative version
      *
      * @param baseVertex the vertex we use to start the walk
-     * @return the list of visited vertexes following the order
+     * @return the list of visited vertices following the order
      */
     List<Integer> depthFirstSearch(int baseVertex);
 

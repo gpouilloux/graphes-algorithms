@@ -47,7 +47,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
 
     /**
      * Constructeur d'une matrice d'incidence à partir d'une liste d'adjacence
-     * Complexité au pire cas = number of vertexes * (number of edges / 2) = n*(m/2)
+     * Complexité au pire cas = number of vertices * (number of edges / 2) = n*(m/2)
      *
      * @param adjacencyList la liste d'adjacence
      */
@@ -67,7 +67,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         int vertexNumber = 0;
         int remainingEdges = nbEdges;
 
-        for(Entry<Integer, List<Integer>> e : adjacencyList.getAdjacencyList()) { // § number of vertexes
+        for(Entry<Integer, List<Integer>> e : adjacencyList.getAdjacencyList()) { // § number of vertices
             for(Integer neighbor : e.getValue()) { // $ number of edges / 2
 	            int cost = adjacencyMatrix[vertexNumber][neighbor];
                 incidentMatrix[vertexNumber][nbEdges - remainingEdges] = cost;
