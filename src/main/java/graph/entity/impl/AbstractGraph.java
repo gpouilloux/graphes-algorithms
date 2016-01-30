@@ -168,6 +168,33 @@ public abstract class AbstractGraph implements IGraph {
 	}
 
 	@Override
+	public int[] bellman(int baseVertex) {
+		int[][] cost = this.getGraph();
+		int[] distance = new int[this.getOrder()];
+		int[] predecessor = new int[this.getOrder()];
+
+		// Initialize distance and predecessor
+		for(int i=0; i<this.getOrder(); i++) {
+			distance[i] = O;
+			predecessor[i] = -1; // -1 is just like nil :-)
+		}
+		distance[baseVertex] = 0;
+
+		// Update the minimal distance until there is nothing else to fetch
+		for(int i=0; i<this.getOrder(); i++) {
+			int[] neighbors = this.getNeighbors(i);
+			for(int j=0; j<neighbors.length; j++) {
+				if(distance[i] + cost[i][neighbors[j]] < distance[neighbors[j]]) {
+					distance[neighbors[j]] = distance[i] + cost[i][neighbors[j]];
+					predecessor[neighbors[j]] = i;
+				}
+			}
+		}
+
+		return distance;
+	}
+
+	@Override
     public List<List<Integer>> computeConnectedGraphs() {
         int baseVertex = (int)(Math.random() * this.getOrder()); // choose base vertex randomly
         this.depthFirstSearch(baseVertex);

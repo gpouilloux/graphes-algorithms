@@ -87,6 +87,23 @@ public class AbstractGraphTest {
 		assertThat(v, equalTo(expectedDistances));
 	}
 
+	@Test
+	public void testBellman() {
+		int[][] adjacencyMatrixBellMan = {
+				{ O, 4, 2, O, },
+				{ O, O, O, -2, },
+				{ O, O, O, 1, },
+				{ O, O, O, O, }
+		};
+
+		this.abstractGraph = new AdjacencyMatrixUndirectedGraph(4, 4, adjacencyMatrixBellMan);
+		int[] distance = this.abstractGraph.bellman(0);
+
+		int[] expectedDistance = {0, 4, 2, 2};
+
+		assertThat(distance, equalTo(expectedDistance));
+	}
+
 
 	@Test
 	public void testComputeConnectedGraphsWithAdjacencyMatrix() {

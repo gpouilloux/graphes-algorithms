@@ -79,6 +79,7 @@ public interface IGraph {
      * Prim algorithm with BFS method
      *
      * @param baseVertex the base vertex used when starting the walk
+     * @return the binary heap
      */
     BinaryHeap prim(int baseVertex);
 
@@ -88,4 +89,13 @@ public interface IGraph {
 	 * @return the matrix of minimum distances between each vertex
 	 */
     int[][] floyd();
+
+	/**
+	 * Bellman algorithm and computation of minimal distance from a base vertex
+	 * (see https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm)
+	 *
+	 * @param baseVertex the base vertex
+	 * @return the minimal distance between the base vertex and all other vertices
+	 */
+	int[] bellman(int baseVertex);
 }
