@@ -12,6 +12,8 @@ import static graph.util.Constantes.O;
 
 /**
  * Test class for incident matrix representing directed graphs
+ *
+ * @author Guillaume Pouilloux
  */
 public class IncidentMatrixDirectedGraphTest {
 

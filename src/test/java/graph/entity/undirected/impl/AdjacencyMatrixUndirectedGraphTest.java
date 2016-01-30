@@ -12,6 +12,8 @@ import static graph.util.Constantes.O;
 
 /**
  * Test class for adjacency matrix representing undirected graphs
+ *
+ * @author Guillaume Pouilloux
  */
 public class AdjacencyMatrixUndirectedGraphTest {
 

@@ -13,6 +13,8 @@ import static graph.util.Constantes.O;
 
 /**
  * Test class for incident matrix representing undirected graphs
+ *
+ * @author Guillaume Pouilloux
  */
 public class IncidentMatrixUndirectedGraphTest {
 

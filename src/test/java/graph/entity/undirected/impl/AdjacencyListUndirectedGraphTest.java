@@ -13,6 +13,8 @@ import static graph.util.Constantes.O;
 
 /**
  * Test class for adjacency list representing undirected graphs
+ *
+ * @author Guillaume Pouilloux
  */
 public class AdjacencyListUndirectedGraphTest {
 

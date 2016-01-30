@@ -16,6 +16,14 @@ public interface IGraph {
      */
     int[][] getGraph();
 
+	/**
+	 * Returns the vertex's neighbors
+	 *
+	 * @param x the vertex's id
+	 * @return an array containing the id of all the neighbors
+	 */
+	int[] getNeighbors(int x);
+
     /**
      * Check whether an arc is an edge or not
      * @param x the source of the arc
@@ -45,7 +53,7 @@ public interface IGraph {
      * Walk through the graph using BFS method (parcours en largeur)
      *
      * @param baseVertex the vertex we use to start the walk
-     * @return the minimum distance of each vertex against the starting one
+     * @return the list of visited vertexes following the order
      */
     List<Integer> breadthFirstSearch(int baseVertex);
 
@@ -54,6 +62,7 @@ public interface IGraph {
      * Imperative version
      *
      * @param baseVertex the vertex we use to start the walk
+     * @return the list of visited vertexes following the order
      */
     List<Integer> depthFirstSearch(int baseVertex);
 
@@ -73,11 +82,10 @@ public interface IGraph {
      */
     BinaryHeap prim(int baseVertex);
 
-	// TODO javadoc
 	/**
-	 * Floyd algorithm
+	 * Floyd algorithm and computation of transitive closure
 	 *
-	 * @return
+	 * @return the matrix of predecessors
 	 */
     int[][] floyd();
 }

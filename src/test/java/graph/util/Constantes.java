@@ -2,6 +2,8 @@ package graph.util;
 
 /**
  * Stores useful constantes for unit tests
+ *
+ * @author Guillaume Pouilloux
  */
 public class Constantes {
 

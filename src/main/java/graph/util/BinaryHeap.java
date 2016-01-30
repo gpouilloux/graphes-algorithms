@@ -139,14 +139,6 @@ public class BinaryHeap {
 		// TODO nice display of a binary heap
     }
 
-    public int[] getWeights() {
-        return weights;
-    }
-
-    public void setWeights(int[] weights) {
-        this.weights = weights;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

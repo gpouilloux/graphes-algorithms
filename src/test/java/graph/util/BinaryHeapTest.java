@@ -12,6 +12,8 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
  * Test the binaryHeap representation
+ *
+ * @author Guillaume Pouilloux
  */
 public class BinaryHeapTest {
 

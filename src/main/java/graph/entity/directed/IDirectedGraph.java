@@ -10,7 +10,7 @@ import graph.entity.IGraph;
  */
 public interface IDirectedGraph extends IGraph {
 
-    /**
+	/**
      * Grab successors of the vertex x
      * @param x the vertex
      * @return its successors
@@ -38,4 +38,9 @@ public interface IDirectedGraph extends IGraph {
      * @param cost the cost on the arc
      */
 	void addArc(int x, int y, int cost);
+
+	@Override
+	default int[] getNeighbors(int x) {
+		return this.getSuccessors(x);
+	}
 }
