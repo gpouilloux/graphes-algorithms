@@ -1,16 +1,20 @@
 package graph.entity.impl;
 
+import graph.entity.directed.impl.AdjacencyListDirectedGraph;
+import graph.entity.directed.impl.AdjacencyMatrixDirectedGraph;
 import graph.entity.undirected.impl.AdjacencyMatrixUndirectedGraph;
 import graph.util.BinaryHeap;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.List;
 
 import static graph.util.Constantes.O;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * Test methods implemented in {AbstractGraph}
@@ -104,6 +108,46 @@ public class AbstractGraphTest {
 		assertThat(distance, equalTo(expectedDistance));
 	}
 
+	@Test
+	public void testBellmanWithMoreEdges() {
+		int[][] adjacencyMatrixBellMan = {
+				{ O, 4, O, O, 3, O },
+				{ O, O, O, 3, O, 8 },
+				{ O, O, O, O, O, O },
+				{ O, O, O, O, 2, O },
+				{ O, O, -5, O, O, 4 },
+				{ O, O, O, O, O, O }
+		};
+
+		this.abstractGraph = new AdjacencyMatrixUndirectedGraph(6, 8, adjacencyMatrixBellMan);
+		int[] distance = this.abstractGraph.bellman(0);
+
+		int[] expectedDistance = {0, 4, -2, 7, 3, 7};
+
+		assertThat(distance, equalTo(expectedDistance));
+	}
+
+	@Test
+	public void testBellmanWithNegativeCycle() {
+		int[][] adjacencyMatrixBellMan = {
+				{ O, 4, O, O, 3, O },
+				{ O, O, O, 3, O, 8 },
+				{ O, 4, O, O, O, O },
+				{ O, O, O, O, 2, O },
+				{ O, O, -5, O, O, 4 },
+				{ O, O, O, O, O, O }
+		};
+
+		this.abstractGraph = new AdjacencyMatrixUndirectedGraph(6, 8, adjacencyMatrixBellMan);
+
+		try {
+			this.abstractGraph.bellman(0);
+			fail();
+		} catch(Error e) {
+			assertThat(e.getLocalizedMessage(), equalTo("Graph contains a negative-weight cycle"));
+		}
+
+	}
 
 	@Test
 	public void testComputeConnectedGraphsWithAdjacencyMatrix() {
@@ -115,4 +159,46 @@ public class AbstractGraphTest {
 			}
 		}
 	}
+
+	// Performance test regarding the different data structure
+
+	private AbstractGraph abstractGraphPerformance;
+	private static final int orderPerformance = 6;
+	private static final int nbEdgesPerformance = 7;
+	private static final int baseVertexPerformance = 0;
+	private static final int[][] adjacencyMatrixBellManPerformance = {
+			{ O, 4, O, O, 3, O },
+			{ O, O, O, 3, O, 8 },
+			{ O, O, O, O, O, O },
+			{ O, O, O, O, 2, O },
+			{ O, O, -5, O, O, 4 },
+			{ O, O, O, O, O, O }
+	};
+
+	@Test
+	public void testBellmanDirectedAdjacencyMatrix() {
+		long startTime = System.nanoTime();
+
+		this.abstractGraphPerformance = new AdjacencyMatrixDirectedGraph(orderPerformance, nbEdgesPerformance
+				, adjacencyMatrixBellManPerformance);
+
+		this.abstractGraphPerformance.bellman(baseVertexPerformance);
+
+		System.out.println(MessageFormat.format("Bellman - Adjacency matrix : {0} microseconds",
+				(System.nanoTime() - startTime)/1000));
+	}
+
+	@Test
+	public void testBellmanDirectedAdjacencyList() {
+		long startTime = System.nanoTime();
+
+		this.abstractGraphPerformance = new AdjacencyListDirectedGraph(new AdjacencyMatrixDirectedGraph(orderPerformance,
+				nbEdgesPerformance, adjacencyMatrixBellManPerformance));
+
+		this.abstractGraphPerformance.bellman(baseVertexPerformance);
+
+		System.out.println(MessageFormat.format("Bellman - Adjacency list : {0} microseconds",
+				(System.nanoTime() - startTime)/1000));
+	}
+
 }

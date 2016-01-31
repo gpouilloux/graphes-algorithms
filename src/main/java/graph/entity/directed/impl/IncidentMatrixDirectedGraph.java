@@ -44,9 +44,10 @@ public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 		// convert the adjacency matrix into an incident matrix
 		for(int i=0; i<order; i++) {
 			for(int j=0; j<order; j++) {
-				if(this.adjacencyMatrix[i][j] != O) {
-					this.incidentMatrix[i][nbEdges - remainingEdges] = this.adjacencyMatrix[i][j];
-					this.incidentMatrix[j][nbEdges - remainingEdges] = -this.adjacencyMatrix[i][j];
+				int cost = this.adjacencyMatrix[i][j];
+				if(cost != O) {
+					this.incidentMatrix[i][nbEdges - remainingEdges] = cost;
+					this.incidentMatrix[j][nbEdges - remainingEdges] = -cost;
 					remainingEdges--;
 				}
 			}
@@ -78,8 +79,11 @@ public class IncidentMatrixDirectedGraph extends AbstractDirectedGraph {
 
 		for(Entry<Integer, List<Integer>> e : adjacencyList.getAdjacencyList()) { // § number of vertices
 			for(Integer successor : e.getValue()) { // $ number of edges / 2
-				incidentMatrix[vertexNumber][nbEdges - remainingEdges] = this.adjacencyMatrix[e.getKey()][successor];
-				incidentMatrix[successor][nbEdges - remainingEdges] = -this.adjacencyMatrix[e.getKey()][successor];
+				int cost = this.adjacencyMatrix[vertexNumber][successor];
+				if(cost != O) {
+					incidentMatrix[vertexNumber][nbEdges - remainingEdges] = cost;
+					incidentMatrix[successor][nbEdges - remainingEdges] = -cost;
+				}
 				remainingEdges--;
 			}
 			vertexNumber++;

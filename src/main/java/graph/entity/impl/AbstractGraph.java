@@ -181,12 +181,23 @@ public abstract class AbstractGraph implements IGraph {
 		distance[baseVertex] = 0;
 
 		// Update the minimal distance until there is nothing else to fetch
-		for(int i=0; i<this.getOrder(); i++) {
-			int[] neighbors = this.getNeighbors(i);
+		List<Integer> verticesToVisit = this.breadthFirstSearch(baseVertex);
+		for(Integer vertex : verticesToVisit) {
+			int[] neighbors = this.getNeighbors(vertex);
 			for(int j=0; j<neighbors.length; j++) {
-				if(distance[i] + cost[i][neighbors[j]] < distance[neighbors[j]]) {
-					distance[neighbors[j]] = distance[i] + cost[i][neighbors[j]];
-					predecessor[neighbors[j]] = i;
+				int neighbor = neighbors[j];
+				if(distance[vertex] != O && distance[vertex] + cost[vertex][neighbor] < distance[neighbor]) {
+					distance[neighbor] = distance[vertex] + cost[vertex][neighbor];
+					predecessor[neighbor] = vertex;
+				}
+			}
+		}
+
+		// Check for negative-weight cycles and throw an error if necessary
+		for(int i=0; i<this.getOrder(); i++) {
+			for(int j=0; j<this.getOrder(); j++) {
+				if(cost[i][j] != O && distance[i] + cost[i][j] < distance[j]) {
+					throw new Error("Graph contains a negative-weight cycle");
 				}
 			}
 		}

@@ -87,6 +87,7 @@ public class IncidentMatrixUndirectedGraph extends AbstractUndirectedGraph {
         this.order = incidentMatrix.getOrder();
         this.nbEdges = incidentMatrix.getNbEdges();
         this.incidentMatrix = incidentMatrix.getIncidentMatrix();
+        this.adjacencyMatrix = incidentMatrix.getGraph();
     }
 
 
