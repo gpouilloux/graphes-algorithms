@@ -135,10 +135,6 @@ public class BinaryHeap {
         return 2*i+1 < this.weights.length && 2*i+2 < this.weights.length;
     }
 
-    public void display() {
-		// TODO nice display of a binary heap
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
